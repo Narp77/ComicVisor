@@ -1,0 +1,3 @@
+comicvisor_homepage:
+    path:     /
+    defaults: { _controller: comicvisorBundle:Default:index }

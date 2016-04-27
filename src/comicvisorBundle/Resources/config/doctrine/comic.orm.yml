@@ -1,0 +1,34 @@
+comicvisorBundle\Entity\comic:
+    type: entity
+    table: null
+    repositoryClass: comicvisorBundle\Repository\comicRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: '200'
+        autor:
+            type: string
+            length: '200'
+        fechaSalida:
+            type: date
+            column: fecha_salida
+        estado:
+            type: string
+            length: '200'
+        descripcion:
+            type: string
+            length: '3000'
+        portada:
+            type: string
+            length: '200'
+        portadaNombre:
+            type: string
+            length: '200'
+            column: portada_nombre
+    lifecycleCallbacks: {  }

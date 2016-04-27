@@ -1,0 +1,22 @@
+comicvisorBundle\Entity\capitulo:
+    type: entity
+    table: null
+    repositoryClass: comicvisorBundle\Repository\capituloRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        idcomic:
+            type: integer
+        numero:
+            type: integer
+        titulo:
+            type: string
+            length: '200'
+        fechaSalida:
+            type: date
+            column: fecha_salida
+    lifecycleCallbacks: {  }

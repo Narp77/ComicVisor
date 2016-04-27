@@ -1,0 +1,47 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}Inicio{% endblock %}
+{% block body%}
+		<h2>Ultimas subidas</h2>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck">
+		    {% for dato in datos %}
+			<!-- card -->
+                <div class="card text-xs-center">
+                  <div class="card-block">
+                    <h6 class="card-title">{{dato.nombre}}</h6>
+                    <h6 class="card-subtitle text-muted">{{dato.numero}}</h6>
+                  </div>
+                  <img class="center-block img-fluid" src="img/portada.jpg" alt="Card image cap">
+                  <!--<div class="card-block">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                  </div>-->
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck">
+		    {% for dato2 in datos2 %}
+			<!-- card -->
+                <div class="card text-xs-center">
+                  <div class="card-block">
+                    <h6 class="card-title">{{dato2.nombre}}</h6>
+                    <h6 class="card-subtitle text-muted">{{dato2.numero}}</h6>
+                  </div>
+                  <img class="center-block img-fluid" src="img/portada.jpg" alt="Card image cap">
+                  <!--<div class="card-block">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                  </div>-->
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+
+{% endblock %}
