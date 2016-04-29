@@ -1,30 +1,53 @@
 {% extends '::plantilla1.html.twig' %} 
 
-{% block title%}{{datos.nombre}}{% endblock %}
+{% block title%}ComicVisor - {{datos.nombre}}{% endblock %}
 
 {% block body%}
 <div class="col-md-4">
-    <img src="img/portada.jpg" class="center-block portada" alt="portada comic">
+    <img src="img/portada.jpg" class="center-block portada2" alt="portada comic">
 </div>
-<div class="col-md-8">
+<div class="col-md-7 contenedorpr">
     <div class="row">
-        <h2><span class="ion-information-circled">  </span>  Información</h2>
+        <h2><span class="ion-information-circled verde">  </span>  Datos sobre {{datos.nombre}}</h2>
     </div>
     <div class="row margintop">
-        <p><span class="ion-edit">  </span>  autor: {{datos.autor}}</p>
+        <p><span class="ion-edit informacion2" >  autor  </span> <span class="informacion1"> {{datos.autor}} </span></p>
+        <hr>
     </div>
     <div class="row">
-        <p><span class="ion-calendar">  </span>  Fecha de salida: {{datos.fechaSalida|date('d-m-Y')}}</p>
+        <p><span class="ion-calendar informacion2">  Fecha de salida </span> <span class="informacion1"> {{datos.fechaSalida|date('d-m-Y')}} </span></p>
+         <hr>
     </div>
     <div class="row">
-        <p><span class="ion-checkmark">  </span>  Estado: {{datos.estado}}</p>
+        <p><span class="ion-checkmark informacion2">  Estado </span>  <span class="informacion1"> {{datos.estado}} </span></p>
+         <hr>
     </div>
     <div class="row">
-        <p><span class="ion-document-text">  </span>  Sipnosis: {{datos.descripcion}}</p>
+        <p><span class="ion-document-text informacion2">  Sipnosis </span>  <span class="informacion1"> {{datos.descripcion}} </span></p>
+         <hr>
     </div>
     <div class="row">
-        <p><span class="ion-pricetags">  </span>   Categorias: </p>
+        <p><span class="ion-pricetags informacion2">      Categorias </span> <span class="informacion1"> </span>  </p>
+        <hr>
     </div>
 </div> 
 
+{% endblock %}
+
+{% block body2%}
+<h2>Lista de capitulos</h2>
+<div id="manita" class="list-group">
+    {% for dato in datos2 %}
+    <a  class="list-group-item lista" onclick="hola()">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts%}
+<script>
+    document.getElementById("manita").style.cursor = "pointer";
+    function hola(){
+        alert('hola');
+    }
+</script>
 {% endblock %}

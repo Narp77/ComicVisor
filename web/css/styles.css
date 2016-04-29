@@ -19,11 +19,12 @@ body.modal-open {
 }
 
 hr {
-    max-width: 120px;
+    /*max-width: 120px;*/
     border-width: 3px;
-    opacity: 0.08;
+    opacity: 0.5;
     margin-top: 25px;
     margin-bottom: 25px;
+    border-top: 3px solid #5cb85c;
 }
 
 hr.light {
@@ -374,6 +375,16 @@ background-color:#5cb85c;
     height: 100%;
 }
 
+.portada2{
+    /*width: 10rem;
+    height: 15rem;*/
+    width: 80%;
+    height: 80%;
+    margin-bottom: 2.5rem;
+    margin-top: .3rem;
+}
+
+
 .enlace1, .enlace1:hover{
     text-decoration: none;
     color: #000;
@@ -385,4 +396,34 @@ h3{
 
 .margintop{
     margin-top: 1.5em;
+}
+
+.informacion1{
+    display: inline-block;
+    margin-left: .5rem;
+    font-size: 1.2rem;
+}
+.informacion2{
+    display: inline-block;
+    width: 14rem;
+    text-align: left;
+    color: #5cb85c;
+    font-size: 1.2rem;
+}
+.contenedorpr{
+    margin-left: 1rem;
+}
+.verde{
+    color: #5cb85c;
+}
+
+a.list-group-item{
+    color: #000;
+}
+
+a.list-group-item:hover{
+    color:#000;
+    text-decoration:none;
+    background-color:#5cb85c; 
+    
 }

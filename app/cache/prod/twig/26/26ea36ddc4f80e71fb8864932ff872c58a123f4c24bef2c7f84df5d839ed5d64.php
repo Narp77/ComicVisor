@@ -29,7 +29,7 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        echo "Inicio";
+        echo "ComicVisor - Inicio";
     }
 
     // line 4
@@ -211,7 +211,7 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
 }
 /* {% extends '::plantilla1.html.twig' %} */
 /* */
-/* {% block title%}Inicio{% endblock %}*/
+/* {% block title%}ComicVisor - Inicio{% endblock %}*/
 /* {% block body%}*/
 /* 		<h3>Ultimas subidas</h3>*/
 /* 		*/

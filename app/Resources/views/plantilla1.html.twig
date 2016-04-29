@@ -62,7 +62,7 @@
         <div class="row">
          {% block body %}{% endblock %}
         </div>
-        <div class="row margintop">
+        <div class="row margintop contenedorpr">
          {% block body2 %}{% endblock %}
         </div>
          
@@ -70,7 +70,7 @@
 </section>
 
     <!--scripts loaded here-->
-    
+    {% block scripts %}{% endblock %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>

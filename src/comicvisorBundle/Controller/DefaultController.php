@@ -60,6 +60,17 @@ class DefaultController extends Controller
          
         $datos = $query->getQuery()->getSingleResult();
         
+        $query = $em->createQueryBuilder()
+             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo')
+             ->from('comicvisorBundle:comic', 'v')
+             ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+             ->where('v.portadaNombre = :portadaNombre')
+             ->setParameter('portadaNombre', $portadaNombre)
+             ->setFirstResult(0)
+             ->setMaxResults(6);
+              
+        $datos2 = $query->getQuery()->getResult();
+        
         /*
         $parameters = array(
             'thread' => $thread_array['thread'], 
@@ -76,6 +87,6 @@ class DefaultController extends Controller
             ->setParameters($parameters);
         */
         
-        return $this->render('comicvisorBundle:Default:comic.html.twig',array('datos' => $datos));
+        return $this->render('comicvisorBundle:Default:comic.html.twig',array('datos' => $datos, 'datos2' => $datos2));
     }
 }

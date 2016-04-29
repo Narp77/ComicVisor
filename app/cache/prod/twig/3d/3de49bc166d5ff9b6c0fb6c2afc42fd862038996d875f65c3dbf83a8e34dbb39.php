@@ -14,6 +14,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
             'stylesheets' => array($this, 'block_stylesheets'),
             'body' => array($this, 'block_body'),
             'body2' => array($this, 'block_body2'),
+            'scripts' => array($this, 'block_scripts'),
         );
     }
 
@@ -87,7 +88,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
         $this->displayBlock('body', $context, $blocks);
         // line 64
         echo "        </div>
-        <div class=\"row margintop\">
+        <div class=\"row margintop contenedorpr\">
          ";
         // line 66
         $this->displayBlock('body2', $context, $blocks);
@@ -98,8 +99,11 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 </section>
 
     <!--scripts loaded here-->
-    
-    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>
+    ";
+        // line 73
+        $this->displayBlock('scripts', $context, $blocks);
+        // line 74
+        echo "    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>
     <script src=\"//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js\"></script>
     <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js\"></script>
     <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js\"></script>
@@ -135,6 +139,11 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
     {
     }
 
+    // line 73
+    public function block_scripts($context, array $blocks = array())
+    {
+    }
+
     public function getTemplateName()
     {
         return "::plantilla1.html.twig";
@@ -142,7 +151,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 
     public function getDebugInfo()
     {
-        return array (  134 => 66,  129 => 63,  121 => 13,  118 => 12,  113 => 6,  95 => 67,  93 => 66,  89 => 64,  87 => 63,  40 => 18,  38 => 12,  29 => 6,  23 => 2,);
+        return array (  143 => 73,  138 => 66,  133 => 63,  125 => 13,  122 => 12,  117 => 6,  106 => 74,  104 => 73,  96 => 67,  94 => 66,  90 => 64,  88 => 63,  41 => 18,  39 => 12,  30 => 6,  24 => 2,);
     }
 }
 /* {# app/Resources/views/base.html.twig #}*/
@@ -209,7 +218,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 /*         <div class="row">*/
 /*          {% block body %}{% endblock %}*/
 /*         </div>*/
-/*         <div class="row margintop">*/
+/*         <div class="row margintop contenedorpr">*/
 /*          {% block body2 %}{% endblock %}*/
 /*         </div>*/
 /*          */
@@ -217,7 +226,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 /* </section>*/
 /* */
 /*     <!--scripts loaded here-->*/
-/*     */
+/*     {% block scripts %}{% endblock %}*/
 /*     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*/
 /*     <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>*/
 /*     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>*/
