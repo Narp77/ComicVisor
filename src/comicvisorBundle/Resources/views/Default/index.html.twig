@@ -2,18 +2,18 @@
 
 {% block title%}Inicio{% endblock %}
 {% block body%}
-		<h2>Ultimas subidas</h2>
+		<h3>Ultimas subidas</h3>
 		
 		<div class="card-deck-wrapper">
-  		<div class="card-deck">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		    {% for dato in datos %}
 			<!-- card -->
-                <div class="card text-xs-center">
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
                   <div class="card-block">
-                    <h6 class="card-title">{{dato.nombre}}</h6>
-                    <h6 class="card-subtitle text-muted">{{dato.numero}}</h6>
+                    <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
+                    <h6 class="card-subtitle">capitulo {{dato.numero}}</h6>
                   </div>
-                  <img class="center-block img-fluid" src="img/portada.jpg" alt="Card image cap">
+                  <a href=""><img class="center-block portada" src="img/portada.jpg" alt="Card image cap"></a>
                   <!--<div class="card-block">
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="#" class="card-link">Card link</a>
@@ -25,15 +25,58 @@
 		</div>
 		
 		<div class="card-deck-wrapper">
-  		<div class="card-deck">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		    {% for dato2 in datos2 %}
 			<!-- card -->
-                <div class="card text-xs-center">
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
                   <div class="card-block">
-                    <h6 class="card-title">{{dato2.nombre}}</h6>
-                    <h6 class="card-subtitle text-muted">{{dato2.numero}}</h6>
+                    <a href="{{dato2.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato2.nombre}}</h6></a>
+                    <h6 class="card-subtitle">capitulo {{dato2.numero}}</h6>
                   </div>
-                  <img class="center-block img-fluid" src="img/portada.jpg" alt="Card image cap">
+                  <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>
+                  <!--<div class="card-block">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                  </div>-->
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+
+{% endblock %}
+
+{% block body2%}
+		<h3>Ultimos Comics</h3>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato3 in datos3 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato3.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato3.nombre}}</h6></a>
+                  </div>
+                  <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>
+                  <!--<div class="card-block">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                  </div>-->
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato4 in datos4 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato4.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato4.nombre}}</h6></a>
+                  </div>
+                  <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>
                   <!--<div class="card-block">
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="#" class="card-link">Card link</a>

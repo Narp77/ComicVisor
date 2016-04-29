@@ -1,3 +1,7 @@
 comicvisor_homepage:
     path:     /
     defaults: { _controller: comicvisorBundle:Default:index }
+
+comicvisor_comicpage:
+    path:     /{portadaNombre}
+    defaults: { _controller: comicvisorBundle:Default:comic }

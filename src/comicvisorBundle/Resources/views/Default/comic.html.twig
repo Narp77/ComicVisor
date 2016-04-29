@@ -1,0 +1,30 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}{{datos.nombre}}{% endblock %}
+
+{% block body%}
+<div class="col-md-4">
+    <img src="img/portada.jpg" class="center-block portada" alt="portada comic">
+</div>
+<div class="col-md-8">
+    <div class="row">
+        <h2><span class="ion-information-circled">  </span>  Información</h2>
+    </div>
+    <div class="row margintop">
+        <p><span class="ion-edit">  </span>  autor: {{datos.autor}}</p>
+    </div>
+    <div class="row">
+        <p><span class="ion-calendar">  </span>  Fecha de salida: {{datos.fechaSalida|date('d-m-Y')}}</p>
+    </div>
+    <div class="row">
+        <p><span class="ion-checkmark">  </span>  Estado: {{datos.estado}}</p>
+    </div>
+    <div class="row">
+        <p><span class="ion-document-text">  </span>  Sipnosis: {{datos.descripcion}}</p>
+    </div>
+    <div class="row">
+        <p><span class="ion-pricetags">  </span>   Categorias: </p>
+    </div>
+</div> 
+
+{% endblock %}
