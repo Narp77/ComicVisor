@@ -1,0 +1,30 @@
+comicvisorBundle\Entity\usuario:
+    type: entity
+    table: null
+    repositoryClass: comicvisorBundle\Repository\usuarioRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nick:
+            type: string
+            length: '200'
+        pass:
+            type: string
+            length: '200'
+        correo:
+            type: string
+            length: '200'
+        fechaNac:
+            type: date
+            column: fecha_nac
+        tipo:
+            type: string
+            length: '200'
+        descripcion:
+            type: string
+            length: '1000'
+    lifecycleCallbacks: {  }

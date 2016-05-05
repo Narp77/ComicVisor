@@ -15,6 +15,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
             'body' => array($this, 'block_body'),
             'body2' => array($this, 'block_body2'),
             'scripts' => array($this, 'block_scripts'),
+            'scripts2' => array($this, 'block_scripts2'),
         );
     }
 
@@ -88,7 +89,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
         $this->displayBlock('body', $context, $blocks);
         // line 64
         echo "        </div>
-        <div class=\"row margintop contenedorpr\">
+        <div class=\"row margintop\">
          ";
         // line 66
         $this->displayBlock('body2', $context, $blocks);
@@ -103,13 +104,10 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
         // line 73
         $this->displayBlock('scripts', $context, $blocks);
         // line 74
-        echo "    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>
-    <script src=\"//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js\"></script>
-    <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js\"></script>
-    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js\"></script>
-    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js\"></script>
-    <script src=\"js/scripts.js\"></script>
-  </body>
+        echo "    ";
+        $this->displayBlock('scripts2', $context, $blocks);
+        // line 82
+        echo "  </body>
 </html>";
     }
 
@@ -144,6 +142,19 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
     {
     }
 
+    // line 74
+    public function block_scripts2($context, array $blocks = array())
+    {
+        // line 75
+        echo "    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>
+    <script src=\"//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js\"></script>
+    <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js\"></script>
+    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js\"></script>
+    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js\"></script>
+    <script src=\"js/scripts.js\"></script>
+    ";
+    }
+
     public function getTemplateName()
     {
         return "::plantilla1.html.twig";
@@ -151,7 +162,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 
     public function getDebugInfo()
     {
-        return array (  143 => 73,  138 => 66,  133 => 63,  125 => 13,  122 => 12,  117 => 6,  106 => 74,  104 => 73,  96 => 67,  94 => 66,  90 => 64,  88 => 63,  41 => 18,  39 => 12,  30 => 6,  24 => 2,);
+        return array (  149 => 75,  146 => 74,  141 => 73,  136 => 66,  131 => 63,  123 => 13,  120 => 12,  115 => 6,  110 => 82,  107 => 74,  105 => 73,  97 => 67,  95 => 66,  91 => 64,  89 => 63,  42 => 18,  40 => 12,  31 => 6,  25 => 2,);
     }
 }
 /* {# app/Resources/views/base.html.twig #}*/
@@ -218,7 +229,7 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 /*         <div class="row">*/
 /*          {% block body %}{% endblock %}*/
 /*         </div>*/
-/*         <div class="row margintop contenedorpr">*/
+/*         <div class="row margintop">*/
 /*          {% block body2 %}{% endblock %}*/
 /*         </div>*/
 /*          */
@@ -227,11 +238,13 @@ class __TwigTemplate_0c7b2b8e6d8ac76858472d61fb3653c6381e3c02262e2dbc44fb2e25e7f
 /* */
 /*     <!--scripts loaded here-->*/
 /*     {% block scripts %}{% endblock %}*/
+/*     {% block scripts2 %}*/
 /*     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*/
 /*     <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>*/
 /*     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>*/
 /*     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>*/
 /*     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>*/
 /*     <script src="js/scripts.js"></script>*/
+/*     {% endblock %}*/
 /*   </body>*/
 /* </html>*/

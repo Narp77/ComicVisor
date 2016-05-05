@@ -55,10 +55,14 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
             echo "\" class=\"enlace1\"><h6 class=\"card-title\">";
             echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "nombre", array()), "html", null, true);
             echo "</h6></a>
-                    <h6 class=\"card-subtitle\">capitulo ";
+                    <a href=\"";
             // line 14
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "portadaNombre", array()), "html", null, true);
+            echo "/";
             echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "numero", array()), "html", null, true);
-            echo "</h6>
+            echo "\" class=\"enlace1\"><h6 class=\"card-subtitle\">capitulo ";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "numero", array()), "html", null, true);
+            echo "</h6></a>
                   </div>
                   <a href=\"\"><img class=\"center-block portada\" src=\"img/portada.jpg\" alt=\"Card image cap\"></a>
                   <!--<div class=\"card-block\">
@@ -93,10 +97,14 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
             echo "\" class=\"enlace1\"><h6 class=\"card-title\">";
             echo twig_escape_filter($this->env, $this->getAttribute($context["dato2"], "nombre", array()), "html", null, true);
             echo "</h6></a>
-                    <h6 class=\"card-subtitle\">capitulo ";
+                    <a href=\"";
             // line 34
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dato2"], "portadaNombre", array()), "html", null, true);
+            echo "/";
             echo twig_escape_filter($this->env, $this->getAttribute($context["dato2"], "numero", array()), "html", null, true);
-            echo "</h6>
+            echo "\" class=\"enlace1\"><h6 class=\"card-subtitle\">capitulo ";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dato2"], "numero", array()), "html", null, true);
+            echo "</h6></a>
                   </div>
                   <a href=\"\"><img class=\"center-block portada\" src=\"img/portada2.jpg\" alt=\"Card image cap\"></a>
                   <!--<div class=\"card-block\">
@@ -206,7 +214,7 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
 
     public function getDebugInfo()
     {
-        return array (  191 => 87,  173 => 77,  168 => 74,  164 => 73,  157 => 68,  139 => 58,  134 => 55,  130 => 54,  124 => 50,  121 => 49,  114 => 44,  98 => 34,  92 => 33,  87 => 30,  83 => 29,  76 => 24,  60 => 14,  54 => 13,  49 => 10,  45 => 9,  39 => 5,  36 => 4,  30 => 3,  11 => 1,);
+        return array (  199 => 87,  181 => 77,  176 => 74,  172 => 73,  165 => 68,  147 => 58,  142 => 55,  138 => 54,  132 => 50,  129 => 49,  122 => 44,  102 => 34,  96 => 33,  91 => 30,  87 => 29,  80 => 24,  60 => 14,  54 => 13,  49 => 10,  45 => 9,  39 => 5,  36 => 4,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends '::plantilla1.html.twig' %} */
@@ -222,7 +230,7 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
 /*                 <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">*/
 /*                   <div class="card-block">*/
 /*                     <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>*/
-/*                     <h6 class="card-subtitle">capitulo {{dato.numero}}</h6>*/
+/*                     <a href="{{dato.portadaNombre}}/{{dato.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato.numero}}</h6></a>*/
 /*                   </div>*/
 /*                   <a href=""><img class="center-block portada" src="img/portada.jpg" alt="Card image cap"></a>*/
 /*                   <!--<div class="card-block">*/
@@ -242,7 +250,7 @@ class __TwigTemplate_e523d4f21f38bc7e227691519d4384e1b1994d425c65ac5f335b9d4bc10
 /*                 <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">*/
 /*                   <div class="card-block">*/
 /*                     <a href="{{dato2.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato2.nombre}}</h6></a>*/
-/*                     <h6 class="card-subtitle">capitulo {{dato2.numero}}</h6>*/
+/*                     <a href="{{dato2.portadaNombre}}/{{dato2.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato2.numero}}</h6></a>*/
 /*                   </div>*/
 /*                   <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>*/
 /*                   <!--<div class="card-block">*/

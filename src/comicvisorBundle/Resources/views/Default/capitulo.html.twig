@@ -1,10 +1,15 @@
 {% extends '::plantilla1.html.twig' %} 
 
 {% block title%}ComicVisor - {{datos.nombre}}{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    {% endblock %}
 {% block body%}
 <div class="col-md-4">
-    <img src="img/portada.jpg" class="center-block portada2" alt="portada comic">
+    <img src="../img/portada.jpg" class="center-block portada2" alt="portada comic">
 </div>
 <div class="col-md-7 contenedorpr">
     <div class="row">
@@ -38,7 +43,7 @@
 <h2>Lista de capitulos</h2>
 <div id="manita" class="list-group">
     {% for dato in datos2 %}
-    <a  href="{{dato.portadaNombre}}/{{dato.numero}}" class="list-group-item lista" onclick="hola()">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
+    <a  class="list-group-item lista" onclick="hola()">{{datos2.id}}</a>
     {% endfor %}
 </div>
 {% endblock %}
@@ -49,4 +54,13 @@
     function hola(){
     }
 </script>
+{% endblock %}
+
+{% block scripts2 %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script src="../js/scripts.js"></script>
 {% endblock %}

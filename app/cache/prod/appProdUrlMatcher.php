@@ -41,6 +41,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'comicvisor_comicpage')), array (  '_controller' => 'comicvisorBundle\\Controller\\DefaultController::comicAction',));
         }
 
+        // comicvisor_capitulopage
+        if (preg_match('#^/(?P<portadaNombre>[^/]++)/(?P<numero>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'comicvisor_capitulopage')), array (  '_controller' => 'comicvisorBundle\\Controller\\DefaultController::capituloAction',));
+        }
+
         // homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

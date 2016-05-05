@@ -97,7 +97,11 @@ class __TwigTemplate_4db29467a184661393befafe77bc72848bc57edff2d399cc1826d88e23b
         $context['_seq'] = twig_ensure_traversable((isset($context["datos2"]) ? $context["datos2"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["dato"]) {
             // line 41
-            echo "    <a  class=\"list-group-item lista\" onclick=\"hola()\">";
+            echo "    <a  href=\"";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "portadaNombre", array()), "html", null, true);
+            echo "/";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "numero", array()), "html", null, true);
+            echo "\" class=\"list-group-item lista\" onclick=\"hola()\">";
             echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "nombre", array()), "html", null, true);
             echo " - ";
             echo twig_escape_filter($this->env, $this->getAttribute($context["dato"], "numero", array()), "html", null, true);
@@ -121,7 +125,6 @@ class __TwigTemplate_4db29467a184661393befafe77bc72848bc57edff2d399cc1826d88e23b
         echo "<script>
     document.getElementById(\"manita\").style.cursor = \"pointer\";
     function hola(){
-        alert('hola');
     }
 </script>
 ";
@@ -139,7 +142,7 @@ class __TwigTemplate_4db29467a184661393befafe77bc72848bc57edff2d399cc1826d88e23b
 
     public function getDebugInfo()
     {
-        return array (  121 => 47,  118 => 46,  113 => 43,  100 => 41,  96 => 40,  92 => 38,  89 => 37,  75 => 26,  68 => 22,  61 => 18,  54 => 14,  48 => 11,  41 => 6,  38 => 5,  31 => 3,  11 => 1,);
+        return array (  125 => 47,  122 => 46,  117 => 43,  100 => 41,  96 => 40,  92 => 38,  89 => 37,  75 => 26,  68 => 22,  61 => 18,  54 => 14,  48 => 11,  41 => 6,  38 => 5,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends '::plantilla1.html.twig' %} */
@@ -182,7 +185,7 @@ class __TwigTemplate_4db29467a184661393befafe77bc72848bc57edff2d399cc1826d88e23b
 /* <h2>Lista de capitulos</h2>*/
 /* <div id="manita" class="list-group">*/
 /*     {% for dato in datos2 %}*/
-/*     <a  class="list-group-item lista" onclick="hola()">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>*/
+/*     <a  href="{{dato.portadaNombre}}/{{dato.numero}}" class="list-group-item lista" onclick="hola()">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>*/
 /*     {% endfor %}*/
 /* </div>*/
 /* {% endblock %}*/
@@ -191,7 +194,6 @@ class __TwigTemplate_4db29467a184661393befafe77bc72848bc57edff2d399cc1826d88e23b
 /* <script>*/
 /*     document.getElementById("manita").style.cursor = "pointer";*/
 /*     function hola(){*/
-/*         alert('hola');*/
 /*     }*/
 /* </script>*/
 /* {% endblock %}*/

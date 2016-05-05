@@ -5,3 +5,7 @@ comicvisor_homepage:
 comicvisor_comicpage:
     path:     /{portadaNombre}
     defaults: { _controller: comicvisorBundle:Default:comic }
+
+comicvisor_capitulopage:
+    path:     /{portadaNombre}/{numero}
+    defaults: { _controller: comicvisorBundle:Default:capitulo }
