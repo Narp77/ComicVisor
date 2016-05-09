@@ -37,16 +37,27 @@
 {% block body2%}
 <h2>Lista de capitulos</h2>
 <div id="manita" class="list-group">
+    {% set cap = '' %}
     {% for dato in datos2 %}
-    <a  href="{{dato.portadaNombre}}/{{dato.numero}}" class="list-group-item lista" onclick="hola()">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
+    {% if dato.numero != cap %}
+    {% set cap = dato.numero %}
+    <a  class="list-group-item lista" onclick="Toggle({{dato.numero}})">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
+    <a  class="list-group-item lista oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
+    {% else %}
+    <a  class="list-group-item lista oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
+    {% endif %}
     {% endfor %}
+    
 </div>
 {% endblock %}
 
 {% block scripts%}
 <script>
     document.getElementById("manita").style.cursor = "pointer";
-    function hola(){
+    $(".oculto").hide();
+    function Toggle(numero){
+        
+        $("."+numero+"").fadeToggle(300);
     }
 </script>
 {% endblock %}

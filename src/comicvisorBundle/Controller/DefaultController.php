@@ -61,14 +61,14 @@ class DefaultController extends Controller
         $datos = $query->getQuery()->getSingleResult();
         
         $query = $em->createQueryBuilder()
-             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo')
+             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo, u.nick')
              ->from('comicvisorBundle:comic', 'v')
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+             ->innerJoin('comicvisorBundle:version', 'b', 'WITH', 'b.idcapitulo = c.id')
+             ->innerJoin('comicvisorBundle:usuario', 'u', 'WITH', 'b.idusuario = u.id')
              ->where('v.portadaNombre = :portadaNombre')
              ->setParameter('portadaNombre', $portadaNombre)
-             ->orderBy('c.numero', 'ASC')
-             ->setFirstResult(0)
-             ->setMaxResults(6);
+             ->orderBy('c.numero', 'DESC');
               
         $datos2 = $query->getQuery()->getResult();
         
