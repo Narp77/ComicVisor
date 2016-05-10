@@ -1,0 +1,75 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor{% endblock %}
+
+ {% block body %}
+ 
+ <a href="{{pagina-1}}" class="flecha" ><div class="card col-xs-1 "><span class="ion-chevron-left center-block">  </span></div></a>
+ 
+ <div class="card col-xs-10 text-center">
+     <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+     {% for i in 1..paginas.numeroPag %}
+        {% if i == pagina %}
+            <option value="{{i}}" selected="selected">{{i}}</option>
+        {% else %}
+            <option value="{{i}}">{{i}}</option>
+        {% endif %}
+    {% endfor %}
+    </select>
+ </div>
+ <a href="{{pagina+1}}" class="flecha"><div class="card col-xs-1 "><span class="ion-chevron-right center-block">  </span></div></a>
+ 
+ 
+ <div class="card col-xs-12"></div>
+ 
+ <a href="{{pagina-1}}" class="flecha"><div class="card col-xs-1"><span class="ion-chevron-left center-block">  </span></div></a>
+  
+ <div class="card col-xs-10">
+     <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+     {% for i in 1..paginas.numeroPag %}
+        {% if i == pagina %}
+            <option value="{{i}}" selected="selected">{{i}}</option>
+        {% else %}
+            <option value="{{i}}">{{i}}</option>
+        {% endif %}
+    {% endfor %}
+    </select>
+ </div>
+ 
+  <a href="{{pagina+1}}" class="flecha"><div class="card col-xs-1"><span class="ion-chevron-right center-block">  </span></div></a>
+ 
+ {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <link rel="stylesheet" href="../../../css/styles.css" />
+    {% endblock %}
+
+{% block scripts2 %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script src="../../../js/scripts.js"></script>
+{% endblock %}
+
+{% block scripts %}  
+
+<script>
+    
+    function Cambiar(num)
+    {
+        if(num==1)
+        {
+        window.location.href = ""+$("select[id=select1]").val();+"";
+        }
+        else
+        {
+        window.location.href = ""+$("select[id=select2]").val();+"";
+        }
+    }
+</script>
+{% endblock %}

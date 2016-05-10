@@ -61,7 +61,7 @@ class DefaultController extends Controller
         $datos = $query->getQuery()->getSingleResult();
         
         $query = $em->createQueryBuilder()
-             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo, u.nick')
+             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo, u.nick, b.id')
              ->from('comicvisorBundle:comic', 'v')
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
              ->innerJoin('comicvisorBundle:version', 'b', 'WITH', 'b.idcapitulo = c.id')
@@ -145,6 +145,35 @@ class DefaultController extends Controller
             ->setParameters($parameters);
         */
         
-        return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2));
+        return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'portada' => $portadaNombre,'numero' => $numero));
+    }
+    
+    public function versionAction($portadaNombre,$numero,$idversion,$pagina)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+           ->select('v.numeroPag')
+           ->from('comicvisorBundle:version','v')
+           ->where('v.id = :id')
+           ->setParameter('id', $idversion);
+         
+        $paginas = $query->getQuery()->getSingleResult();
+        if($pagina < 1 || $pagina > $paginas['numeroPag'])
+        {
+            return $this ->redirect($this -> generateUrl('comicvisor_versionpage',array('portadaNombre' => $portadaNombre,
+                 'numero' => $numero,
+                 'pagina' => 1,
+                 'idversion' => $idversion)));
+        }
+        else
+        {
+           return $this->render('comicvisorBundle:Default:version.html.twig',
+           array('portada' => $portadaNombre,
+                 'numero' => $numero,
+                 'pagina' => $pagina,
+                 'paginas' => $paginas,
+                 'id' => $idversion
+                 ));
+        }
     }
 }

@@ -41,10 +41,10 @@
     {% for dato in datos2 %}
     {% if dato.numero != cap %}
     {% set cap = dato.numero %}
-    <a  class="list-group-item lista" onclick="Toggle({{dato.numero}})">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
-    <a  class="list-group-item lista oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
+    <a  class="list-group-item" onclick="Toggle({{dato.numero}})">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
+    <a  href="{{dato.portadaNombre}}/{{dato.numero}}/{{dato.id}}/1" class="list-group-item oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
     {% else %}
-    <a  class="list-group-item lista oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
+    <a  href="{{dato.portadaNombre}}/{{dato.numero}}/{{dato.id}}/1" class="list-group-item oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
     {% endif %}
     {% endfor %}
     

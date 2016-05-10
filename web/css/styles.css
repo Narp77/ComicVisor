@@ -431,3 +431,15 @@ a.list-group-item:hover{
 .oculto{
     background-color: Lavender;
 }
+
+.flecha{
+    font-size: 3rem;
+    color:#5cb85c;
+}
+.flecha:hover{
+    color:#000;
+}
+
+.lista{
+height: 4.5rem;
+}

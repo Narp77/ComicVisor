@@ -9,3 +9,9 @@ comicvisor_comicpage:
 comicvisor_capitulopage:
     path:     /{portadaNombre}/{numero}
     defaults: { _controller: comicvisorBundle:Default:capitulo }
+
+comicvisor_versionpage:
+    path:     /{portadaNombre}/{numero}/{idversion}/{pagina}
+    defaults: { _controller: comicvisorBundle:Default:version}
+    requirements:
+        pagina:  \d+
