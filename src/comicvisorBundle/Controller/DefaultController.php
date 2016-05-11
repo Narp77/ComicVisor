@@ -128,6 +128,16 @@ class DefaultController extends Controller
             
         $datos2 = $query->getQuery()->getResult();
         
+         $subquery2 = $em->createQueryBuilder()
+             ->select('c.numero')
+             ->from('comicvisorBundle:comic', 'v')
+             ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+             ->where('v.portadaNombre = :portadaNombre')
+             ->setParameter('portadaNombre', $portadaNombre)
+             ->setMaxResults(1)
+             ->orderBy('c.numero', 'DESC');
+             
+             $maximo = $subquery2->getQuery()->getSingleResult();
         
         /*
         $parameters = array(
@@ -145,7 +155,14 @@ class DefaultController extends Controller
             ->setParameters($parameters);
         */
         
+         if($numero < 1 || $numero > $maximo['numero'])
+        {
+            return $this ->redirect($this -> generateUrl('comicvisor_comicpage',array('portadaNombre' => $portadaNombre)));
+        }
+        else{
+        
         return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'portada' => $portadaNombre,'numero' => $numero));
+        }
     }
     
     public function versionAction($portadaNombre,$numero,$idversion,$pagina)
@@ -158,22 +175,25 @@ class DefaultController extends Controller
            ->setParameter('id', $idversion);
          
         $paginas = $query->getQuery()->getSingleResult();
-        if($pagina < 1 || $pagina > $paginas['numeroPag'])
-        {
-            return $this ->redirect($this -> generateUrl('comicvisor_versionpage',array('portadaNombre' => $portadaNombre,
-                 'numero' => $numero,
-                 'pagina' => 1,
-                 'idversion' => $idversion)));
-        }
-        else
-        {
-           return $this->render('comicvisorBundle:Default:version.html.twig',
-           array('portada' => $portadaNombre,
-                 'numero' => $numero,
-                 'pagina' => $pagina,
-                 'paginas' => $paginas,
-                 'id' => $idversion
-                 ));
-        }
+        
+        
+            if($pagina < 1 || $pagina > $paginas['numeroPag'])
+            {
+                return $this ->redirect($this -> generateUrl('comicvisor_versionpage',array('portadaNombre' => $portadaNombre,
+                     'numero' => $numero,
+                     'pagina' => 1,
+                     'idversion' => $idversion)));
+            }
+            else
+            {
+               return $this->render('comicvisorBundle:Default:version.html.twig',
+               array('portada' => $portadaNombre,
+                     'numero' => $numero,
+                     'pagina' => $pagina,
+                     'paginas' => $paginas,
+                     'id' => $idversion
+                     ));
+            }
+        
     }
 }

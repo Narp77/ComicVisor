@@ -442,4 +442,12 @@ a.list-group-item:hover{
 
 .lista{
 height: 4.5rem;
+width: 3.5rem;
+}
+
+.center-block2{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center
 }

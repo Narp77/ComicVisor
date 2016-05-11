@@ -4,40 +4,113 @@
 
  {% block body %}
  
- <a href="{{pagina-1}}" class="flecha" ><div class="card col-xs-1 "><span class="ion-chevron-left center-block">  </span></div></a>
+ {% if pagina == 1 %}
+         <a href="../../{{numero-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-ios-undo center-block2"></span></div></a>
+         
+         <div class="col-xs-4 col-sm-8 text-center">
+             <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-right center-block2"></span></div></a>
+         
+         
+         <div class="card col-xs-12"></div>
+         
+         <a href="../../{{numero-1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-ios-undo center-block2"></span></div></a>
+          
+         <div class="col-xs-4 col-sm-8">
+             <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         
+          <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-right center-block2"></span></div></a>
  
- <div class="card col-xs-10 text-center">
-     <select id="select1" onchange="Cambiar(1)" class="center-block lista">
-     {% for i in 1..paginas.numeroPag %}
-        {% if i == pagina %}
-            <option value="{{i}}" selected="selected">{{i}}</option>
-        {% else %}
-            <option value="{{i}}">{{i}}</option>
-        {% endif %}
-    {% endfor %}
-    </select>
- </div>
- <a href="{{pagina+1}}" class="flecha"><div class="card col-xs-1 "><span class="ion-chevron-right center-block">  </span></div></a>
+ {% elseif pagina == paginas.numeroPag %} 
  
- 
- <div class="card col-xs-12"></div>
- 
- <a href="{{pagina-1}}" class="flecha"><div class="card col-xs-1"><span class="ion-chevron-left center-block">  </span></div></a>
-  
- <div class="card col-xs-10">
-     <select id="select2" onchange="Cambiar(2)" class="center-block lista">
-     {% for i in 1..paginas.numeroPag %}
-        {% if i == pagina %}
-            <option value="{{i}}" selected="selected">{{i}}</option>
-        {% else %}
-            <option value="{{i}}">{{i}}</option>
-        {% endif %}
-    {% endfor %}
-    </select>
- </div>
- 
-  <a href="{{pagina+1}}" class="flecha"><div class="card col-xs-1"><span class="ion-chevron-right center-block">  </span></div></a>
- 
+          <a href="{{pagina-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-left center-block2"></span></div></a>
+         
+         <div class="col-xs-4 col-sm-8 text-center">
+             <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         <a href="../../{{numero+1}}" class="flecha"><div class="col-xs-4 col-sm-2 "><span class="ion-ios-redo center-block2"></span></div></a>
+         
+         
+         <div class="card col-xs-12"></div>
+         
+         <a href="{{pagina-1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-left center-block2"></span></div></a>
+          
+         <div class="col-xs-4 col-sm-8">
+             <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         
+          <a href="../../{{numero+1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-ios-redo center-block2"></span></div></a>
+ {% else %}
+         
+         <a href="{{pagina-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-left center-block2"></span></div></a>
+         
+         <div class="col-xs-4 col-sm-8 text-center">
+             <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-right center-block2"></span></div></a>
+         
+         
+         <div class="card col-xs-12"></div>
+         
+         <a href="{{pagina-1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-left center-block2"></span></div></a>
+          
+         <div class="col-xs-4 col-sm-8">
+             <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         
+          <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-right center-block2"></span></div></a>
+         
+ {% endif %}
  {% endblock %}
 
 {% block stylesheets %}
