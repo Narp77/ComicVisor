@@ -1,0 +1,16 @@
+comicvisorBundle\Entity\comicTieneCategoria:
+    type: entity
+    table: null
+    repositoryClass: comicvisorBundle\Repository\comicTieneCategoriaRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        idcomic:
+            type: integer
+        idcategoria:
+            type: integer
+    lifecycleCallbacks: {  }

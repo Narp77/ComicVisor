@@ -10,34 +10,42 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
-             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo')
+             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo, v.portada, avg(u.voto) as voto')
              ->from('comicvisorBundle:comic', 'v')
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
+             ->groupBy('c.id')
              ->setFirstResult(0)
              ->setMaxResults(6);
         $datos2 =  $datos->getQuery()->getResult();
         
         $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
-             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo')
+             ->select('v.nombre,v.portadaNombre, c.numero, c.titulo,  v.portada, avg(u.voto) as voto')
              ->from('comicvisorBundle:comic', 'v')
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
+             ->groupBy('c.id')
              ->setFirstResult(6)
              ->setMaxResults(6);
         $datos3 =  $datos->getQuery()->getResult();
         
         $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
-             ->select('c.nombre,c.portadaNombre')
+             ->select('c.nombre,c.portadaNombre,  c.portada, avg(u.voto) as voto')
              ->from('comicvisorBundle:comic', 'c')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+             ->groupBy('c.id')
              ->setFirstResult(0)
              ->setMaxResults(6);
         $datos4 =  $datos->getQuery()->getResult();
         
          $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
-             ->select('c.nombre, c.portadaNombre')
+             ->select('c.nombre, c.portadaNombre, c.portada, avg(u.voto) as voto')
              ->from('comicvisorBundle:comic','c')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+             ->groupBy('c.id')
              ->setFirstResult(6)
              ->setMaxResults(6);
         $datos5 =  $datos->getQuery()->getResult();
@@ -59,6 +67,28 @@ class DefaultController extends Controller
            ->setParameter('portadaNombre', $portadaNombre);
          
         $datos = $query->getQuery()->getSingleResult();
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+           ->select('c, avg(u.voto) as voto')
+           ->from('comicvisorBundle:comic','c')
+           ->where('c.portadaNombre = :portadaNombre')
+           ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+           ->groupBy('c.id')
+           ->setParameter('portadaNombre', $portadaNombre);
+         
+        $datos4 = $query->getQuery()->getSingleResult();
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+           ->select('c3.tipo')
+           ->from('comicvisorBundle:comic','c')
+           ->innerJoin('comicvisorBundle:comicTieneCategoria', 'c2', 'WITH', 'c2.idcomic = c.id')
+           ->innerJoin('comicvisorBundle:categoria', 'c3', 'WITH', 'c3.id = c2.idcategoria')
+           ->where('c.portadaNombre = :portadaNombre')
+           ->setParameter('portadaNombre', $portadaNombre);
+         
+        $datos3 = $query->getQuery()->getResult();
         
         $query = $em->createQueryBuilder()
              ->select('v.nombre,v.portadaNombre, c.numero, c.titulo, u.nick, b.id')
@@ -89,7 +119,7 @@ class DefaultController extends Controller
             ->setParameters($parameters);
         */
         
-        return $this->render('comicvisorBundle:Default:comic.html.twig',array('datos' => $datos, 'datos2' => $datos2));
+        return $this->render('comicvisorBundle:Default:comic.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3, 'datos4' => $datos4));
     }
     
     public function capituloAction($portadaNombre,$numero)
@@ -102,6 +132,28 @@ class DefaultController extends Controller
            ->setParameter('portadaNombre', $portadaNombre);
          
         $datos = $query->getQuery()->getSingleResult();
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+           ->select('c, avg(u.voto) as voto')
+           ->from('comicvisorBundle:comic','c')
+           ->where('c.portadaNombre = :portadaNombre')
+           ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+           ->groupBy('c.id')
+           ->setParameter('portadaNombre', $portadaNombre);
+         
+        $datos4 = $query->getQuery()->getSingleResult();
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+           ->select('c3.tipo')
+           ->from('comicvisorBundle:comic','c')
+           ->innerJoin('comicvisorBundle:comicTieneCategoria', 'c2', 'WITH', 'c2.idcomic = c.id')
+           ->innerJoin('comicvisorBundle:categoria', 'c3', 'WITH', 'c3.id = c2.idcategoria')
+           ->where('c.portadaNombre = :portadaNombre')
+           ->setParameter('portadaNombre', $portadaNombre);
+         
+        $datos3 = $query->getQuery()->getResult();
         
         $parameters = array(
             'portadaNombre' => $portadaNombre, 
@@ -161,7 +213,7 @@ class DefaultController extends Controller
         }
         else{
         
-        return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'portada' => $portadaNombre,'numero' => $numero));
+        return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3,'datos4' => $datos4, 'portada' => $portadaNombre,'numero' => $numero));
         }
     }
     

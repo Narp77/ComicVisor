@@ -13,12 +13,10 @@
                     <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
                     <a href="{{dato.portadaNombre}}/{{dato.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato.numero}}</h6></a>
                   </div>
-                  <a href=""><img class="center-block portada" src="img/portada.jpg" alt="Card image cap"></a>
-                  <!--<div class="card-block">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>-->
+                  <a href="{{dato.portadaNombre}}/{{dato.numero}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
                 </div>
 			{% endfor %}
 		</div>
@@ -33,12 +31,10 @@
                     <a href="{{dato2.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato2.nombre}}</h6></a>
                     <a href="{{dato2.portadaNombre}}/{{dato2.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato2.numero}}</h6></a>
                   </div>
-                  <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>
-                  <!--<div class="card-block">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>-->
+                  <a href="{{dato2.portadaNombre}}/{{dato2.numero}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato2.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato2.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
                 </div>
 			{% endfor %}
 		</div>
@@ -57,12 +53,10 @@
                   <div class="card-block">
                     <a href="{{dato3.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato3.nombre}}</h6></a>
                   </div>
-                  <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>
-                  <!--<div class="card-block">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>-->
+                  <a href="{{dato3.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato3.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> </span>{{dato3.voto|round(1, 'floor')}} <span class="ion-ios-star"></h5>
+                  </div>
                 </div>
 			{% endfor %}
 		</div>
@@ -76,12 +70,10 @@
                   <div class="card-block">
                     <a href="{{dato4.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato4.nombre}}</h6></a>
                   </div>
-                  <a href=""><img class="center-block portada" src="img/portada2.jpg" alt="Card image cap"></a>
-                  <!--<div class="card-block">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>-->
+                  <a href="{{dato4.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato4.portada}}.jpg" alt="Card image cap"></a>
+                 <div class="card-block">
+                    <h5 class="amarillo"> {{dato4.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
                 </div>
 			{% endfor %}
 		</div>

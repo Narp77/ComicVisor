@@ -1,15 +1,15 @@
 {% extends '::plantilla1.html.twig' %} 
 
 {% block title%}ComicVisor - {{datos.nombre}}{% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
-    {% endblock %}
+
 {% block body%}
 <div class="col-md-4">
-    <img src="../img/portada.jpg" class="center-block portada2" alt="portada comic">
+   <a href="../{{datos.portadaNombre}}"> <div class="card card-inverse portada2">
+  <img src="{{ asset ('img/portada/')}}{{datos.portada}}.jpg" class="center-block paginav" alt="portada comic">
+  <div class="card-img-overlay">
+   <h5 class="amarillo2"> {{datos4.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+  </div>
+   </div></a>
 </div>
 <div class="col-md-7 contenedorpr">
     <div class="row">
@@ -32,7 +32,7 @@
          <hr>
     </div>
     <div class="row">
-        <p><span class="ion-pricetags informacion2">      Categorias </span> <span class="informacion1"> </span>  </p>
+        <p><span class="ion-pricetags informacion2">      Categorias </span> <span class="informacion1">{% for dato in datos3 %}{{dato.tipo}}   {% endfor %} </span>  </p>
         <hr>
     </div>
 </div> 
@@ -54,13 +54,4 @@
     function hola(){
     }
 </script>
-{% endblock %}
-
-{% block scripts2 %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-    <script src="../js/scripts.js"></script>
 {% endblock %}
