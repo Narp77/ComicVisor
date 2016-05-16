@@ -40,7 +40,7 @@ class DefaultController extends Controller
              ->setMaxResults(6);
         $datos4 =  $datos->getQuery()->getResult();
         
-         $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
              ->select('c.nombre, c.portadaNombre, c.portada, avg(u.voto) as voto')
              ->from('comicvisorBundle:comic','c')
@@ -246,6 +246,32 @@ class DefaultController extends Controller
                      'id' => $idversion
                      ));
             }
+        
+    }
+    
+    public function popularAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $datos = $em->createQueryBuilder()
+             ->select('c.nombre, c.portadaNombre, c.portada, avg(u.voto) as voto, count(u.voto) as total')
+             ->from('comicvisorBundle:comic','c')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+             ->groupBy('c.id')
+             ->orderBy('total', 'DESC');
+
+        $datos1 =  $datos->getQuery()->getResult();
+        
+        $em = $this->getDoctrine()->getManager();
+        $datos = $em->createQueryBuilder()
+             ->select('c.nombre, c.portadaNombre, c.portada, avg(u.voto) as voto, count(u.voto) as total')
+             ->from('comicvisorBundle:comic','c')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+             ->groupBy('c.id')
+             ->orderBy('voto', 'DESC');
+
+        $datos2 =  $datos->getQuery()->getResult();
+           
+        return $this->render('comicvisorBundle:Default:popular.html.twig', array('datos' => $datos1,'datos2' => $datos2));
         
     }
 }

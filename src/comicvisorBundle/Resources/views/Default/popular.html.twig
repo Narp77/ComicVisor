@@ -1,0 +1,69 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - Inicio{% endblock %}
+{% block body%}
+		<div class='col-xs-12 text-center'>
+		<button type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(1)">Mas Populares</button> 
+		<button type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(2)">Mejor Votados</button>
+    </div>
+
+{% endblock %}
+
+{% block body2%}
+		
+		
+		<div id="pop" class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato in datos %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
+                  </div>
+                  <a href="{{dato.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> </span>{{dato.voto|round(1, 'floor')}} <span class="ion-ios-star"></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div id="vot" class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato2 in datos2 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato2.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato2.nombre}}</h6></a>
+                  </div>
+                  <a href="{{dato2.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato2.portada}}.jpg" alt="Card image cap"></a>
+                 <div class="card-block">
+                    <h5 class="amarillo"> {{dato2.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+
+{% endblock %}
+
+{% block scripts %}  
+
+<script>
+    $('#vot').hide();
+    function Cambiar(num)
+    {
+        if(num==1)
+        {
+          $('#vot').hide(700);
+          $('#pop').show(700);
+        }
+        else
+        {
+          $('#pop').hide(700);
+          $('#vot').show(700);
+        }
+    }
+</script>
+{% endblock %}
