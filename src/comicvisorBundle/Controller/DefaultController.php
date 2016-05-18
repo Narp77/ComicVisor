@@ -257,7 +257,8 @@ class DefaultController extends Controller
              ->from('comicvisorBundle:comic','c')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
              ->groupBy('c.id')
-             ->orderBy('total', 'DESC');
+             ->orderBy('total', 'DESC')
+             ->setMaxResults(60);
 
         $datos1 =  $datos->getQuery()->getResult();
         
@@ -267,11 +268,13 @@ class DefaultController extends Controller
              ->from('comicvisorBundle:comic','c')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
              ->groupBy('c.id')
-             ->orderBy('voto', 'DESC');
+             ->orderBy('voto', 'DESC')
+             ->setMaxResults(60);
 
         $datos2 =  $datos->getQuery()->getResult();
            
         return $this->render('comicvisorBundle:Default:popular.html.twig', array('datos' => $datos1,'datos2' => $datos2));
         
     }
+    
 }
