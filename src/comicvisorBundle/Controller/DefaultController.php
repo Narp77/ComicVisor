@@ -15,8 +15,8 @@ class DefaultController extends Controller
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
              ->groupBy('c.id')
-             ->setFirstResult(0)
-             ->setMaxResults(6);
+             ->setFirstResult(0);
+             $datos->setMaxResults(6);
         $datos2 =  $datos->getQuery()->getResult();
         
         $em = $this->getDoctrine()->getManager();
@@ -276,5 +276,96 @@ class DefaultController extends Controller
         return $this->render('comicvisorBundle:Default:popular.html.twig', array('datos' => $datos1,'datos2' => $datos2));
         
     }
+   
+    public function busquedaAction($nombre='', $categoria1=0,$categoria2=0,$categoria3=0,$filtro='',$orden='',$pagina=1)
+    {
+             $arraycategoria= [$categoria1,$categoria2,$categoria3];
+             
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+             ->select('c.nombre,c.portadaNombre,  c.portada, avg(u.voto) as voto, count(u.voto) as total')
+             ->from('comicvisorBundle:comic', 'c')
+             ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
+             ->innerJoin('comicvisorBundle:comicTieneCategoria', 'c2', 'WITH', 'c2.idcomic = c.id')
+             ->where('c.nombre LIKE :nombre');
+             $datos->setParameter('nombre', "%$nombre%");
+             
+             if($categoria1>0 || $categoria2>0 || $categoria3>0)
+             {
+                 
+                 $datos->andwhere('c2.idcategoria IN (:categorias)');
+                 $datos->setParameter('categorias', array_values($arraycategoria));
+             }
+             
+             if($filtro!="")
+             {
+                 if($filtro == "ALF")
+                 {
+                     if($orden == "ASC")
+                     {
+                         $datos->orderBy('c.nombre', 'ASC');
+                     }
+                     else
+                     {
+                         $datos->orderBy('c.nombre', 'DESC');
+                     }
+                 }
+                 if($filtro == "FEC")
+                 {
+                     if($orden == "ASC")
+                     {
+                         $datos->orderBy('c.fechaSalida', 'ASC');
+                     }
+                     else
+                     {
+                         $datos->orderBy('c.fechaSalida', 'DESC');
+                     }
+                 }
+                 if($filtro == "VOT")
+                 {
+                     if($orden == "ASC")
+                     {
+                         $datos->orderBy('voto', 'ASC');
+                     }
+                     else
+                     {
+                         $datos->orderBy('voto', 'DESC');
+                     }
+                 }
+                 if($filtro == "POP")
+                 {
+                     if($orden == "ASC")
+                     {
+                         $datos->orderBy('total', 'ASC');
+                     }
+                     else
+                     {
+                         $datos->orderBy('total', 'DESC');
+                     }
+                 }
+             }
+             
+             $datos->groupBy('c.id');
+             $count = ceil(count($datos->getQuery()->getResult())/24);
+             $franja = (24*$pagina)-24;
+             $datos->setFirstResult($franja);
+             $datos->setMaxResults(24);
+             $resultado =$datos->getQuery()->getResult();
+             
+        return $this->render('comicvisorBundle:Default:busqueda.html.twig', array('datos' => $resultado,'count' => $count, 'pagina' => $pagina));
+        
+    }
     
+    public function bibliotecaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder()
+           ->select('c')
+           ->from('comicvisorBundle:categoria','c');
+         
+        $resultado = $query->getQuery()->getResult();
+             
+        return $this->render('comicvisorBundle:Default:biblioteca.html.twig', array('datos' => $resultado));
+        
+    }
 }

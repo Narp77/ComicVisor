@@ -1,0 +1,27 @@
+	<div id="pop" class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato in datos %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
+                  </div>
+                  <a href="{{dato.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> </span>{{dato.voto|round(1, 'floor')}} <span class="ion-ios-star"> </h5>
+                  </div>
+                </div>
+                
+                {% endfor %}
+                </div>
+                </div>
+                <div class="btn-group container" role="group" aria-label="Basic example">
+                {% for i in 1..pagina %}  
+                {% if i == pagina %}
+                     <button value="{{i}}" type="button" class="btn btn-success-outline">{{i}}</button>
+                {% else %}
+                     <button value="{{i}}" type="button" class="btn btn-success-outline" onclick="cargarDatos({{i}})">{{i}}</button>
+                {% endif %}
+                 
+                {% endfor %}
+                </div>

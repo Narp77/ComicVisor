@@ -2,6 +2,10 @@ comicvisor_homepage:
     path:     /
     defaults: { _controller: comicvisorBundle:Default:index }
 
+comicvisor_bibliotecapage:
+    path:     /biblioteca
+    defaults: { _controller: comicvisorBundle:Default:biblioteca}
+
 comicvisor_popularpage:
     path:     /populares
     defaults: { _controller: comicvisorBundle:Default:popular }
@@ -19,3 +23,7 @@ comicvisor_versionpage:
     defaults: { _controller: comicvisorBundle:Default:version}
     requirements:
         pagina:  \d+
+
+comicvisor_busquedacapage:
+    path:     /{nombre}_{categoria1}_{categoria2}_{categoria3}_{filtro}_{orden}_{pagina}
+    defaults: { _controller: comicvisorBundle:Default:biblioteca}

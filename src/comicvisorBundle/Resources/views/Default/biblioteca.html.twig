@@ -1,0 +1,70 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%} ComicVisor - Biblioteca {% endblock %}
+{% block body%}
+		<div class='col-xs-12 text-center'>
+  		<form class="form-inline">
+  		  
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" placeholder="Introduce el nombre">
+        </div>
+        
+        <div class="form-group">
+            <label for="categoria1">categoria</label>
+            <select class="form-control" id="categoria1">
+              <option value="0">Sin categoria</option>
+              {% for dato in datos %}
+              <option value="{{dato.id}}">{{dato.tipo}}</option>
+              {% endfor %}
+            </select>
+       </div>
+       <div class="form-group">
+            <label for="categoria2">categoria</label>
+            <select class="form-control" id="categoria2">
+              <option value="0">Sin categoria</option>
+              {% for dato in datos %}
+              <option value="{{dato.id}}">{{dato.tipo}}</option>
+              {% endfor %}
+            </select>
+       </div>
+       <div class="form-group">
+            <label for="categoria3">categoria</label>
+            <select class="form-control" id="categoria3">
+              <option value="0">Sin categoria</option>
+              {% for dato in datos %}
+              <option value="{{dato.id}}">{{dato.tipo}}</option>
+              {% endfor %}
+            </select>
+       </div>
+      
+      <div class="form-group">
+            <label for="filtro"Ordenar por </label>
+            <select class="form-control" id="filtro">
+              <option value="ALF">Por nombre</option>
+              <option value="FEC">Por fecha de salida</option>
+              <option value="VOT">Por votos</option>
+              <option value="POP">Por popularidad</option>
+            </select>
+      </div>
+        
+      </form>
+    </div>
+
+{% endblock %}
+
+{% block body2%}
+		
+		
+		<div id="carga" class="container">
+  	
+		</div>
+
+{% endblock %}
+
+{% block scripts %}  
+
+<script>
+
+</script>
+{% endblock %}
