@@ -1,0 +1,137 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%} ComicVisor - Biblioteca {% endblock %}
+
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                           <li class="nav-item btn-group">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{app.session.get('nick')}}   
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{path('comicvisor_modificarpage')}}">Mi perfil</a>
+                                <a class="dropdown-item" href="#"Algo</a>
+                                <a class="dropdown-item" href="{{path('comicvisor_logoutpage')}}">Cerrar sesión</a>
+                            </div>
+                        </li>
+
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+{% endblock %}
+
+{% block body%}
+		<div class='col-xs-12 text-center'>
+  		<form class="form-inline">
+        <div  class="form-group">
+          <input type="text" class="form-control margen" id="nombre" onkeyup="cargarDatos(1)" placeholder="Introduce el nombre">
+        </div >
+      </form> 
+      
+      <form class="form-inline">
+        <div  class="form-group">
+            <select class="form-control margen" id="categoria1" onchange="cargarDatos(1)">
+              <option value="0">Sin categoria</option>
+              {% for dato in datos %}
+              <option value="{{dato.id}}">{{dato.tipo}}</option>
+              {% endfor %}
+            </select>
+       </div >
+       <div  class="form-group">
+            <select class="form-control margen" id="categoria2" onchange="cargarDatos(1)">
+              <option value="0">Sin categoria</option>
+              {% for dato in datos %}
+              <option value="{{dato.id}}">{{dato.tipo}}</option>
+              {% endfor %}
+            </select>
+       </div >
+       <div  class="form-group">
+            <select class="form-control margen" id="categoria3" onchange="cargarDatos(1)">
+              <option value="0">Sin categoria</option>
+              {% for dato in datos %}
+              <option value="{{dato.id}}">{{dato.tipo}}</option>
+              {% endfor %}
+            </select>
+       </div >
+      </form>
+      
+      
+    <form class="form-inline">
+      <div  class="form-group">
+            <select class="form-control margen" id="filtro" onchange="cargarDatos(1)">
+              <option value="ALF">Ordenar por nombre</option>
+              <option value="FEC">Ordenar por fecha de salida</option>
+              <option value="VOT">Ordenar por votos</option>
+              <option value="POP">Ordenar por popularidad</option>
+            </select>
+      </div >
+      
+      <div  class="form-group">
+            <select class="form-control margen" id="orden" onchange="cargarDatos(1)">
+              <option value="DES">Orden descendente</option>
+              <option value="ASC">Orden ascendente</option>
+            </select>
+      </div >
+        
+      </form>
+    </div>
+
+{% endblock %}
+
+{% block body2%}
+		
+		
+		<div id="carga" class="container">
+  	
+		</div>
+
+{% endblock %}
+
+{% block scripts %}  
+
+<script>
+
+  function cargarDatos(pag)
+  {
+    var categoria1 = $("select[id=categoria1]").val();
+    var categoria2 = $("select[id=categoria2]").val();
+    var categoria3 = $("select[id=categoria3]").val();
+    var filtro = $("select[id=filtro]").val();
+    var orden = $("select[id=orden]").val();
+    var nombre = $('#nombre').val();
+    if(nombre == "" || nombre == null)
+    {
+      nombre = "@@@";
+    }
+
+    $('#carga').load('/web/busqueda/'+pag+'/'+categoria1+'/'+categoria2+'/'+categoria3+'/'+filtro+'/'+orden+'/'+nombre+'');
+    
+  }
+  
+$(document).ready(function(){
+ cargarDatos(1);
+});
+</script>
+{% endblock %}

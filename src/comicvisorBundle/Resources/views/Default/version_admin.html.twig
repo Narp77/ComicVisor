@@ -1,0 +1,189 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - {{portada}}{% endblock %}
+
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                           <li class="nav-item btn-group">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{app.session.get('nick')}}   
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{path('comicvisor_modificarpage')}}">Mi perfil</a>
+                                <a class="dropdown-item" href="#"Algo</a>
+                                <a class="dropdown-item" href="{{path('comicvisor_logoutpage')}}">Cerrar sesión</a>
+                            </div>
+                        </li>
+
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+{% endblock %}
+
+{% block body %}
+     <div class='col-xs-12 text-center'>
+            <h3>{{portada}} - {{numero}}</h3>
+            <br/>
+    		<a href="{{ asset ('/')}}{{portada}}" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(1)">Volver al comic</a> 
+    		<a href="{{ asset ('/')}}{{portada}}/{{numero}}" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(2)">Volver al capítulo</a>
+    </div>
+ {% endblock %} 
+
+ {% block body2 %}
+ 
+ {% if pagina == 1 %}
+         <a href="../../{{numero-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-ios-undo center-block2"></span></div></a>
+         
+         <div class="col-xs-4 col-sm-8 text-center">
+             <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-right center-block2"></span></div></a>
+         
+         
+         <div class="card col-xs-12">
+              <a href="{{pagina+1}}"><img class="center-block paginav" src="{{ asset ('img/comic/')}}{{portada}}/{{numero}}/{{id}}/{{pagina}}.jpg" alt="Card image cap"></a>
+         </div>
+         
+         <a href="../../{{numero-1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-ios-undo center-block2"></span></div></a>
+          
+         <div class="col-xs-4 col-sm-8">
+             <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         
+          <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-right center-block2"></span></div></a>
+ 
+ {% elseif pagina == paginas.numeroPag %} 
+ 
+          <a href="{{pagina-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-left center-block2"></span></div></a>
+         
+         <div class="col-xs-4 col-sm-8 text-center">
+             <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         <a href="../../{{numero+1}}" class="flecha"><div class="col-xs-4 col-sm-2 "><span class="ion-ios-redo center-block2"></span></div></a>
+         
+         
+         <div class="card col-xs-12">
+             <img class="center-block paginav" src="{{ asset ('img/comic/')}}{{portada}}/{{numero}}/{{id}}/{{pagina}}.jpg" alt="Card image cap">
+         </div>
+         
+         <a href="{{pagina-1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-left center-block2"></span></div></a>
+          
+         <div class="col-xs-4 col-sm-8">
+             <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         
+          <a href="../../{{numero+1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-ios-redo center-block2"></span></div></a>
+ {% else %}
+         
+         <a href="{{pagina-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-left center-block2"></span></div></a>
+         
+         <div class="col-xs-4 col-sm-8 text-center">
+             <select id="select1" onchange="Cambiar(1)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2 "><span class="ion-chevron-right center-block2"></span></div></a>
+         
+         
+         <div class="card col-xs-12">
+              <a href="{{pagina+1}}"><img class="center-block paginav" src="{{ asset ('img/comic/')}}{{portada}}/{{numero}}/{{id}}/{{pagina}}.jpg" alt="Card image cap"></a>
+         </div>
+         
+         <a href="{{pagina-1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-left center-block2"></span></div></a>
+          
+         <div class="col-xs-4 col-sm-8">
+             <select id="select2" onchange="Cambiar(2)" class="center-block lista">
+             {% for i in 1..paginas.numeroPag %}
+                {% if i == pagina %}
+                    <option value="{{i}}" selected="selected">{{i}}</option>
+                {% else %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+         </div>
+         
+          <a href="{{pagina+1}}" class="flecha"><div class="col-xs-4 col-sm-2"><span class="ion-chevron-right center-block2"></span></div></a>
+         
+ {% endif %}
+ {% endblock %}
+
+
+{% block scripts %}  
+
+<script>
+    
+    function Cambiar(num)
+    {
+        if(num==1)
+        {
+        window.location.href = ""+$("select[id=select1]").val();+"";
+        }
+        else
+        {
+        window.location.href = ""+$("select[id=select2]").val();+"";
+        }
+    }
+</script>
+{% endblock %}

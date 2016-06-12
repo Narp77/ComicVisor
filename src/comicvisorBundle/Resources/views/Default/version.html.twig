@@ -1,8 +1,17 @@
 {% extends '::plantilla1.html.twig' %} 
 
-{% block title%}ComicVisor{% endblock %}
+{% block title%}ComicVisor - {{portada}}{% endblock %}
 
  {% block body %}
+     <div class='col-xs-12 text-center'>
+            <h3>{{portada}} - {{numero}}</h3>
+            <br/>
+    		<a href="{{ asset ('/')}}{{portada}}" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(1)">Volver al comic</a> 
+    		<a href="{{ asset ('/')}}{{portada}}/{{numero}}" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(2)">Volver al capítulo</a>
+    </div>
+ {% endblock %} 
+
+ {% block body2 %}
  
  {% if pagina == 1 %}
          <a href="../../{{numero-1}}" class="flecha" ><div class="col-xs-4 col-sm-2 "><span class="ion-ios-undo center-block2"></span></div></a>

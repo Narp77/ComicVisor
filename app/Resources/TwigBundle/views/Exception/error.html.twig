@@ -1,0 +1,17 @@
+{% extends '::plantilla1.html.twig' %}
+{% block title%}ComicVisor - Error{% endblock %}
+{% block cabecera %}
+{% endblock %}
+
+{% block body %}
+
+  <div class="jumbotron alert-danger">
+     <h1 class="display-4">Error</h1>
+      <p class="lead">La página a la que intenta acceder no se ha encontrado o no existe</p>
+      <hr class="m-y-2">
+      <p class="lead">
+         <a href="{{ asset ('/')}}" class="btn btn-lg btn-danger" >Volver al inicio</a>
+      </p>
+  </div>
+
+{% endblock %}

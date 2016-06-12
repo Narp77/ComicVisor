@@ -6,9 +6,53 @@ comicvisor_bibliotecapage:
     path:     /biblioteca
     defaults: { _controller: comicvisorBundle:Default:biblioteca}
 
+comicvisor_registropage:
+    path:     /registro
+    defaults: { _controller: comicvisorBundle:Default:registro}
+
+comicvisor_subidapage:
+    path:     /subida
+    defaults: { _controller: comicvisorBundle:Default:subida}
+
+comicvisor_modificarpage:
+    path:     /modificar
+    defaults: { _controller: comicvisorBundle:Default:modificar}
+
+comicvisor_loginpage:
+    path:     /entrar
+    defaults: { _controller: comicvisorBundle:Default:login}
+
+comicvisor_logoutpage:
+    path:     /salir
+    defaults: { _controller: comicvisorBundle:Default:logout}
+
 comicvisor_popularpage:
     path:     /populares
     defaults: { _controller: comicvisorBundle:Default:popular }
+
+comicvisor_errorpage:
+    path:     /error
+    defaults: { _controller: comicvisorBundle:Default:error }
+
+comicvisor_correctopage:
+    path:     /correcto
+    defaults: { _controller: comicvisorBundle:Default:correcto }
+
+comicvisor_cdatos1page:
+    path:     /cargaDatos1
+    defaults: { _controller: comicvisorBundle:Default:cdatos }
+
+comicvisor_cdatos2page:
+    path:     /cargaDatos2/{id}
+    defaults: { _controller: comicvisorBundle:Default:cdatos2 }
+
+comicvisor_cdatos3page:
+    path:     /cargaDatos3
+    defaults: { _controller: comicvisorBundle:Default:cdatos3 }
+
+comicvisor_busquedacapage:
+    path:     /busqueda/{pagina}/{categoria1}/{categoria2}/{categoria3}/{filtro}/{orden}/{nombre}
+    defaults: { _controller: comicvisorBundle:Default:busqueda}
 
 comicvisor_comicpage:
     path:     /{portadaNombre}
@@ -23,7 +67,3 @@ comicvisor_versionpage:
     defaults: { _controller: comicvisorBundle:Default:version}
     requirements:
         pagina:  \d+
-
-comicvisor_busquedacapage:
-    path:     /{nombre}_{categoria1}_{categoria2}_{categoria3}_{filtro}_{orden}_{pagina}
-    defaults: { _controller: comicvisorBundle:Default:biblioteca}

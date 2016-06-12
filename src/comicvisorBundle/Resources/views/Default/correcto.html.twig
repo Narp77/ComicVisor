@@ -1,0 +1,18 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - Correcto{% endblock %}
+
+ {% block cabecera %}{% endblock %}
+
+ {% block body %}
+ 
+  <div class="jumbotron alert-success">
+  <h1 class="display-4">Subida Correcta</h1>
+  <p class="lead">La subida de comic, capítulo o versión ha sido realizada correctamente</p>
+  <hr class="m-y-2">
+  <p class="lead">
+     <a href="{{ asset ('/')}}" class="btn btn-lg btn-success" >Volver al inicio</a>
+  </p>
+</div>
+ 
+ {% endblock %}

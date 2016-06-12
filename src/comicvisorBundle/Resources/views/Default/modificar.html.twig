@@ -1,0 +1,213 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - Perfil{% endblock %}
+
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                           <li class="nav-item btn-group">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{app.session.get('nick')}}   
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{path('comicvisor_modificarpage')}}">Mi perfil</a>
+                                <a class="dropdown-item" href="#"Algo</a>
+                                <a class="dropdown-item" href="{{path('comicvisor_logoutpage')}}">Cerrar sesión</a>
+                            </div>
+                        </li>
+
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+{% endblock %}
+
+
+{% block body%}
+			<div class='col-xs-12 text-center'>
+  		  <button id="boton1"type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(1)">Comics siguiendo</button> 
+  		  <button id="boton2" type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(2)">Cambiar correo electronico</button>
+      	<button id="boton3" type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(3)">Cambiar contraseña</button>
+      </div>
+	
+{% endblock %}
+
+{% block body2%}
+
+			<div id="contenido1" class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato in datos %}
+			<!-- card -->
+                <div class="card col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
+                  </div>
+                  <a href="{{dato.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div id="contenido2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		  <h2>Cambiar correo electronico</h2>
+		  <br/>
+		  <label for="correo" class="labels">Nuevo correo</label>
+      <input type="email" name="correo" id="correo" class="form-control" >
+      <br/>
+      <button class="btn btn-lg btn-success btn-block" onclick="correo()">Cambiar correo</button>
+      <br/>
+      <div id="error1" class="alert alert-danger" role="alert">
+        <p><strong>Error</strong></p> <p>Formato erroneo</p>
+      </div>
+      <div id="success1" class="alert alert-success" role="alert">
+        <p><strong>Correcto</strong></p><p> El correo ha sido modificado correctamente</p>
+      </div>
+		</div>
+		
+		<div id="contenido3" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+		  <h2>Cambiar contraseña</h2>
+		  <br/>
+		  <label for="pass1" class="labels">Contraseña</label>
+      <input type="password" name="pass1" id="pass1" class="form-control">
+      <label for="pass2" class="labels">Repite la contraseña</label>
+      <input type="password" name="pass2" id="pass2" class="form-control">
+      <br/>
+      <button class="btn btn-lg btn-success btn-block" onclick="pass()">Cambiar contraseña</button>
+      <br/>
+      <div id="error2" class="alert alert-danger" role="alert">
+        <p><strong>Error</strong></p> <p>Formato erroneo</p>
+      </div>
+      <div id="success2" class="alert alert-success" role="alert">
+        <p><strong>Correcto</strong></p> <p>La contraseña ha sido modificado correctamente</p>
+      </div>
+		</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  function Cambiar(num)
+{
+    if(num == 1)
+    {
+        $('#contenido1').show();
+        $('#contenido2').hide();
+        $('#contenido3').hide();
+    
+    }
+    
+    if(num == 2)
+    { 
+        $('#contenido1').hide();
+        $('#contenido2').show();
+        $('#contenido3').hide();
+    
+    }
+    
+    if(num == 3)
+    {
+        $('#contenido1').hide();
+        $('#contenido2').hide();
+        $('#contenido3').show();
+    
+    }
+}
+
+function correo()
+{
+  // Expresion regular para validar el correo
+    var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    var correo = $('#correo').val().trim();
+    // Se utiliza la funcion test() nativa de JavaScript
+    if (regex.test($('#correo').val().trim())) {
+      
+       $.post("{{ asset ('/php/correo.php')}}",
+    {
+        idusuario: {{app.session.get('id')}},
+        correo: correo
+    },
+    function(data, status){
+        if(status == "success" && data == "ok")
+        {
+            $('#success1').show();
+            setTimeout(function(){$('#success1').hide();},5000);
+        }
+        else{
+           $('#error1').show();
+          setTimeout(function(){$('#error1').hide();},5000);
+        }
+    });
+       
+    } else {
+      
+        $('#error1').show();
+        setTimeout(function(){$('#error1').hide();},5000);
+    }
+}
+
+function pass()
+{
+    
+    var pass1 = $('#pass1').val().trim();
+    var pass2 = $('#pass2').val().trim();
+    // Se utiliza la funcion test() nativa de JavaScript
+    if (pass1==pass2 && pass1!="") {
+      
+       $.post("{{ asset ('/php/pass.php')}}",
+    {
+        idusuario: {{app.session.get('id')}},
+        pass: pass1
+    },
+    function(data, status){
+        if(status == "success" && data == "ok")
+        {
+            $('#success2').show();
+            setTimeout(function(){$('#success2').hide();},5000);
+        }
+        else{
+           $('#error2').show();
+        setTimeout(function(){$('#error2').hide();},5000);
+        }
+    });
+       
+    } else {
+      
+        $('#error2').show();
+        setTimeout(function(){$('#error2').hide();},5000);
+    }
+}
+
+$(document).ready(function(){
+    $('#error1').hide();
+    $('#error2').hide();
+    $('#success1').hide();
+    $('#success2').hide();
+    $('#contenido2').hide();
+    $('#contenido3').hide();
+    });
+  
+</script>
+{% endblock %}

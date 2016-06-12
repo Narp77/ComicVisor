@@ -3,10 +3,15 @@
 namespace comicvisorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use comicvisorBundle\Entity\usuario;
+use comicvisorBundle\Form\usuarioType;
+
+
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
@@ -54,10 +59,71 @@ class DefaultController extends Controller
 					  ->getRepository('comicvisorBundle:capitulo')
 					  ->findAll();*/
         
-        return $this->render('comicvisorBundle:Default:index.html.twig',array('datos' => $datos2, 'datos2' => $datos3,'datos3' => $datos4,'datos4' => $datos5 ));
+         $session=$request->getSession();
+         if($session->has("id"))
+         {
+              $subquery = $em->createQueryBuilder()
+             ->select('v.id')
+             ->from('comicvisorBundle:comic', 'v')
+             ->innerJoin('comicvisorBundle:usuarioSigueComic', 'c', 'WITH', 'v.id = c.idcomic')
+             ->where('c.idusuario = :id')
+             ->setParameter('id', $session->get('id'));
+             
+             if(count($subquery->getQuery()->getResult()) <= 0)
+             {
+                 $bandera =0;
+             }
+             else{
+                 $bandera=1;
+             }
+             
+             $ids = $subquery->getQuery()->getResult();
+             
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+                 ->select('v.nombre,v.portadaNombre, c.numero, c.titulo, v.portada, avg(u.voto) as voto')
+                 ->from('comicvisorBundle:comic', 'v')
+                 ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+                 ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
+                 ->where('v.id IN (:ids)')
+                 ->setParameter('ids', array_values($ids))
+                 ->groupBy('c.id')
+                 ->setFirstResult(0);
+                 $datos->setMaxResults(6);
+             $datos6 =  $datos->getQuery()->getResult();
+            
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+                 ->select('v.nombre,v.portadaNombre, c.numero, c.titulo,  v.portada, avg(u.voto) as voto')
+                 ->from('comicvisorBundle:comic', 'v')
+                 ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
+                 ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
+                 ->where('v.id IN (:ids)')
+                 ->setParameter('ids', array_values($ids))
+                 ->groupBy('c.id')
+                 ->setFirstResult(6)
+                 ->setMaxResults(6);
+             $datos7 =  $datos->getQuery()->getResult();
+             
+            if($session->get('tipo')=='admin')
+            {
+                return $this->render('comicvisorBundle:Default:index_admin.html.twig',array('datos' => $datos2, 'datos2' => $datos3,'datos3' => $datos4,'datos4' => $datos5,'datos5' => $datos6,'datos6' => $datos7, 'bandera' => $bandera ));
+            }
+            else{
+                return $this->render('comicvisorBundle:Default:index_user.html.twig',array('datos' => $datos2, 'datos2' => $datos3,'datos3' => $datos4,'datos4' => $datos5,'datos5' => $datos6,'datos6' => $datos7, 'bandera' => $bandera ));
+            }
+             
+         }else
+         {
+            return $this->render('comicvisorBundle:Default:index.html.twig',array('datos' => $datos2, 'datos2' => $datos3,'datos3' => $datos4,'datos4' => $datos5 ));
+         }
+        
+        
+        
+        
     }
     
-    public function comicAction($portadaNombre)
+    public function comicAction(Request $request, $portadaNombre)
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
@@ -119,10 +185,48 @@ class DefaultController extends Controller
             ->setParameters($parameters);
         */
         
-        return $this->render('comicvisorBundle:Default:comic.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3, 'datos4' => $datos4));
+         $session=$request->getSession();
+         if($session->has("id"))
+         {
+             $em = $this->getDoctrine()->getManager();
+             $query = $em->createQueryBuilder()
+               ->select('count(c2.idusuario) as tiene')
+               ->from('comicvisorBundle:comic','c')
+               ->innerJoin('comicvisorBundle:usuarioSigueComic', 'c2', 'WITH', 'c2.idcomic = c.id')
+               ->where('c.portadaNombre = :portadaNombre')
+               ->andWhere('c2.idusuario = :id')
+               ->setParameter('id', $session->get('id'))
+               ->setParameter('portadaNombre', $portadaNombre);
+             
+             $sigue = $query->getQuery()->getOneOrNullResult();
+             
+             $em = $this->getDoctrine()->getManager();
+             $query = $em->createQueryBuilder()
+               ->select('c2.voto')
+               ->from('comicvisorBundle:comic','c')
+               ->innerJoin('comicvisorBundle:usuarioVotaComic', 'c2', 'WITH', 'c2.idcomic = c.id')
+               ->where('c.portadaNombre = :portadaNombre')
+               ->andWhere('c2.idusuario = :id')
+               ->setParameter('id', $session->get('id'))
+               ->setParameter('portadaNombre', $portadaNombre);
+             
+             $voto = $query->getQuery()->getOneOrNullResult();
+               
+               if($session->get('tipo')=='admin')
+                {
+                    return $this->render('comicvisorBundle:Default:comic_admin.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3, 'datos4' => $datos4, 'sigue' => $sigue, 'voto' => $voto));
+                }
+                else{
+                    return $this->render('comicvisorBundle:Default:comic_user.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3, 'datos4' => $datos4, 'sigue' => $sigue, 'voto' => $voto));
+                }
+               
+         }
+         else{
+            return $this->render('comicvisorBundle:Default:comic.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3, 'datos4' => $datos4));
+        }
     }
     
-    public function capituloAction($portadaNombre,$numero)
+    public function capituloAction($portadaNombre,$numero, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
@@ -206,18 +310,35 @@ class DefaultController extends Controller
         $query = $this->em->createQuery($dql)
             ->setParameters($parameters);
         */
-        
          if($numero < 1 || $numero > $maximo['numero'])
         {
             return $this ->redirect($this -> generateUrl('comicvisor_comicpage',array('portadaNombre' => $portadaNombre)));
         }
         else{
         
-        return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3,'datos4' => $datos4, 'portada' => $portadaNombre,'numero' => $numero));
+        $session=$request->getSession();
+         if($session->has("id"))
+         {
+             
+               
+               if($session->get('tipo')=='admin')
+                {
+                    return $this->render('comicvisorBundle:Default:capitulo_admin.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3,'datos4' => $datos4, 'portada' => $portadaNombre,'numero' => $numero));
+                }
+                else{
+                    return $this->render('comicvisorBundle:Default:capitulo_user.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3,'datos4' => $datos4, 'portada' => $portadaNombre,'numero' => $numero));
+                }
+               
+         }
+         else{
+            return $this->render('comicvisorBundle:Default:capitulo.html.twig',array('datos' => $datos, 'datos2' => $datos2, 'datos3' => $datos3,'datos4' => $datos4, 'portada' => $portadaNombre,'numero' => $numero));
+        }
+        
+        
         }
     }
     
-    public function versionAction($portadaNombre,$numero,$idversion,$pagina)
+    public function versionAction($portadaNombre,$numero,$idversion,$pagina, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
@@ -228,8 +349,54 @@ class DefaultController extends Controller
          
         $paginas = $query->getQuery()->getSingleResult();
         
-        
-            if($pagina < 1 || $pagina > $paginas['numeroPag'])
+        $session=$request->getSession();
+         if($session->has("id"))
+         {
+             
+               
+               if($session->get('tipo')=='admin')
+                {
+                    if($pagina < 1 || $pagina > $paginas['numeroPag'])
+                    {
+                        return $this ->redirect($this -> generateUrl('comicvisor_versionpage',array('portadaNombre' => $portadaNombre,
+                             'numero' => $numero,
+                             'pagina' => 1,
+                             'idversion' => $idversion)));
+                    }
+                    else
+                    {
+                       return $this->render('comicvisorBundle:Default:version_admin.html.twig',
+                       array('portada' => $portadaNombre,
+                             'numero' => $numero,
+                             'pagina' => $pagina,
+                             'paginas' => $paginas,
+                             'id' => $idversion
+                             ));
+                    }
+                }
+                else{
+                    if($pagina < 1 || $pagina > $paginas['numeroPag'])
+                        {
+                            return $this ->redirect($this -> generateUrl('comicvisor_versionpage',array('portadaNombre' => $portadaNombre,
+                                 'numero' => $numero,
+                                 'pagina' => 1,
+                                 'idversion' => $idversion)));
+                        }
+                        else
+                        {
+                           return $this->render('comicvisorBundle:Default:version_user.html.twig',
+                           array('portada' => $portadaNombre,
+                                 'numero' => $numero,
+                                 'pagina' => $pagina,
+                                 'paginas' => $paginas,
+                                 'id' => $idversion
+                                 ));
+                        }
+                }
+               
+         }
+         else{
+             if($pagina < 1 || $pagina > $paginas['numeroPag'])
             {
                 return $this ->redirect($this -> generateUrl('comicvisor_versionpage',array('portadaNombre' => $portadaNombre,
                      'numero' => $numero,
@@ -246,10 +413,13 @@ class DefaultController extends Controller
                      'id' => $idversion
                      ));
             }
+        }
+        
+            
         
     }
     
-    public function popularAction()
+    public function popularAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $datos = $em->createQueryBuilder()
@@ -272,13 +442,32 @@ class DefaultController extends Controller
              ->setMaxResults(60);
 
         $datos2 =  $datos->getQuery()->getResult();
-           
-        return $this->render('comicvisorBundle:Default:popular.html.twig', array('datos' => $datos1,'datos2' => $datos2));
         
+         $session=$request->getSession();
+         if($session->has("id"))
+         {
+             
+               
+               if($session->get('tipo')=='admin')
+                {
+                    return $this->render('comicvisorBundle:Default:popular_admin.html.twig', array('datos' => $datos1,'datos2' => $datos2));
+                }
+                else{
+                    return $this->render('comicvisorBundle:Default:popular_user.html.twig', array('datos' => $datos1,'datos2' => $datos2));
+                }
+               
+         }
+         else{
+        return $this->render('comicvisorBundle:Default:popular.html.twig', array('datos' => $datos1,'datos2' => $datos2));
+         }    
     }
    
-    public function busquedaAction($nombre='', $categoria1=0,$categoria2=0,$categoria3=0,$filtro='',$orden='',$pagina=1)
+    public function busquedaAction($pagina=1, $categoria1=0,$categoria2=0,$categoria3=0,$filtro='',$orden='',$nombre="")
     {
+            if($nombre=="@@@")
+            {
+                $nombre="";
+            }
              $arraycategoria= [$categoria1,$categoria2,$categoria3];
              
              $em = $this->getDoctrine()->getManager();
@@ -356,7 +545,7 @@ class DefaultController extends Controller
         
     }
     
-    public function bibliotecaAction()
+    public function bibliotecaAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQueryBuilder()
@@ -364,8 +553,206 @@ class DefaultController extends Controller
            ->from('comicvisorBundle:categoria','c');
          
         $resultado = $query->getQuery()->getResult();
+        
+         $session=$request->getSession();
+         if($session->has("id"))
+         {
              
+               
+               if($session->get('tipo')=='admin')
+                {
+                    return $this->render('comicvisorBundle:Default:biblioteca_admin.html.twig', array('datos' => $resultado));
+                }
+                else{
+                    return $this->render('comicvisorBundle:Default:biblioteca_user.html.twig', array('datos' => $resultado));
+                }
+               
+         }
+         else{
         return $this->render('comicvisorBundle:Default:biblioteca.html.twig', array('datos' => $resultado));
+         }    
+        
+        
         
     }
+    
+    public function loginAction(Request $request)
+    {
+        $session=$request->getSession();
+        $session->clear();
+        
+        if($request->getMethod()=='POST')
+        {
+            $nick =$request->get('nick');
+            $pass =$request->get('pass');
+            
+             $user=$this->getDoctrine()->getRepository('comicvisorBundle:usuario')->findOneBy(array("nick"=>$nick,"pass"=>$pass));
+            if($user)
+            {
+               $session=$request->getSession();
+               $session->set("id",$user->getId());
+               $session->set("nick",$user->getNick());
+               $session->set("tipo",$user->getTipo());
+               
+               return $this->redirect($this->generateUrl('comicvisor_homepage'));
+            }else
+            {
+                 $this->get('session')->getFlashBag()->add(
+                                'mensaje',
+                                'El nombre de usuario y la contraseña no coinciden'
+                            );
+                    return $this->redirect($this->generateUrl('comicvisor_loginpage'));
+            }
+            
+        }
+             
+             
+        return $this->render('comicvisorBundle:Default:login.html.twig');
+        
+    }
+    
+     public function logoutAction(Request $request)
+    {
+        $session=$request->getSession();
+        $session->clear();
+        return $this->redirect($this->generateUrl('comicvisor_homepage'));
+    }
+    
+    public function registroAction(Request $request)
+    {
+        $p=new usuario();
+         $form=$this->createForm(new usuarioType(),$p);
+          $form->handleRequest($request);
+         if($form->isValid())
+         {
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($p);
+            $em->flush();
+            return $this->redirect($this->generateUrl('comicvisor_homepage'));
+         }
+         
+        return $this->render('comicvisorBundle:Default:registro.html.twig',array("form"=>$form->createView()));
+    }
+    
+
+    
+    public function subidaAction(Request $request)
+    {
+         $session=$request->getSession();
+         if($session->has("id"))
+         {
+             
+               
+               if($session->get('tipo')=='admin')
+                {
+                    return $this->render('comicvisorBundle:Default:subida.html.twig', array('datos' => $datos1,'datos2' => $datos2));
+                }
+                else{
+                    return $this->render('comicvisorBundle:Default:subida.html.twig', array('datos' => $datos1,'datos2' => $datos2));
+                }
+               
+         }
+         else{
+             return $this->redirect($this->generateUrl('comicvisor_loginpage'));
+         }    
+    }
+    
+    public function cdatosAction()
+    {
+            
+             
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+             ->select('c.nombre,c.id')
+             ->from('comicvisorBundle:comic', 'c')
+             ->orderBy('c.nombre', 'ASC');
+             $resultado =$datos->getQuery()->getResult();
+             
+            
+             
+        return $this->render('comicvisorBundle:Default:cdatos.html.twig', array('datos' => $resultado));
+        
+    }
+    
+     public function cdatos3Action()
+    {
+            
+             
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+             ->select('c.tipo,c.id')
+             ->from('comicvisorBundle:categoria', 'c')
+             ->orderBy('c.tipo', 'ASC');
+             $resultado =$datos->getQuery()->getResult();
+             
+            
+             
+        return $this->render('comicvisorBundle:Default:cdatos3.html.twig', array('datos' => $resultado));
+        
+    }
+    
+    public function cdatos2Action($id)
+    {
+            
+             
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+             ->select('c.numero,c.id')
+             ->from('comicvisorBundle:capitulo', 'c')
+             ->where('c.idcomic = :id')
+             ->setParameter('id', $id)
+             ->orderBy('c.numero', 'ASC');
+             $resultado =$datos->getQuery()->getResult();
+             
+            
+             
+        return $this->render('comicvisorBundle:Default:cdatos2.html.twig', array('datos' => $resultado));
+        
+    }
+    
+    public function errorAction()
+    {
+        return $this->render('comicvisorBundle:Default:error.html.twig');
+    }
+    
+    public function correctoAction()
+    {
+        return $this->render('comicvisorBundle:Default:correcto.html.twig');
+    }
+    
+    public function modificarAction(Request $request)
+    {
+         $session=$request->getSession();
+         if($session->has("id"))
+         {
+            $em = $this->getDoctrine()->getManager();
+            $subquery = $em->createQueryBuilder()
+             ->select('v.id')
+             ->from('comicvisorBundle:comic', 'v')
+             ->innerJoin('comicvisorBundle:usuarioSigueComic', 'c', 'WITH', 'v.id = c.idcomic')
+             ->where('c.idusuario = :id')
+             ->setParameter('id', $session->get('id'));
+             
+             $ids = $subquery->getQuery()->getResult();
+             
+             $em = $this->getDoctrine()->getManager();
+             $datos = $em->createQueryBuilder()
+                 ->select('v.nombre,v.portadaNombre, v.portada, avg(u.voto) as voto')
+                 ->from('comicvisorBundle:comic', 'v')
+                 ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
+                 ->where('v.id IN (:ids)')
+                 ->setParameter('ids', array_values($ids))
+                 ->groupBy('v.id');
+             $datos1 =  $datos->getQuery()->getResult();
+             
+               return $this->render('comicvisorBundle:Default:modificar.html.twig',array('datos' => $datos1));
+         }else
+         {
+              return $this->redirect($this->generateUrl('comicvisor_loginpage'));
+         }
+        
+        
+      
+    }
+    
 }

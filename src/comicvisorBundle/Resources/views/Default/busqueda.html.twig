@@ -16,6 +16,7 @@
                 </div>
                 </div>
                 <div class="btn-group container" role="group" aria-label="Basic example">
+                {% if pagina > 1 %}
                 {% for i in 1..pagina %}  
                 {% if i == pagina %}
                      <button value="{{i}}" type="button" class="btn btn-success-outline">{{i}}</button>
@@ -24,4 +25,5 @@
                 {% endif %}
                  
                 {% endfor %}
+                {% endif %}
                 </div>

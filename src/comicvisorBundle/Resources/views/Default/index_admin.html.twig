@@ -1,0 +1,164 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - Inicio{% endblock %}
+
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                           <li class="nav-item btn-group">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{app.session.get('nick')}}  
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{path('comicvisor_modificarpage')}}">Mi perfil</a>
+                                <a class="dropdown-item" href="#"Algo</a>
+                                <a class="dropdown-item" href="{{path('comicvisor_logoutpage')}}">Cerrar sesión</a>
+                            </div>
+                        </li>
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+{% endblock %}
+
+
+{% block body%}
+		
+		{% if bandera == 1 %}
+		<h3>Ultimas subidas de comic que sigues</h3>
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato in datos5 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
+                    <a href="{{dato.portadaNombre}}/{{dato.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato.numero}}</h6></a>
+                  </div>
+                  <a href="{{dato.portadaNombre}}/{{dato.numero}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato2 in datos6 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato2.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato2.nombre}}</h6></a>
+                    <a href="{{dato2.portadaNombre}}/{{dato2.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato2.numero}}</h6></a>
+                  </div>
+                  <a href="{{dato2.portadaNombre}}/{{dato2.numero}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato2.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato2.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+    {% endif %}
+{% endblock %}
+
+{% block body2%}
+			<h3>Ultimas subidas</h3>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato in datos %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato.nombre}}</h6></a>
+                    <a href="{{dato.portadaNombre}}/{{dato.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato.numero}}</h6></a>
+                  </div>
+                  <a href="{{dato.portadaNombre}}/{{dato.numero}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato2 in datos2 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato2.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato2.nombre}}</h6></a>
+                    <a href="{{dato2.portadaNombre}}/{{dato2.numero}}" class="enlace1"><h6 class="card-subtitle">capitulo {{dato2.numero}}</h6></a>
+                  </div>
+                  <a href="{{dato2.portadaNombre}}/{{dato2.numero}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato2.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> {{dato2.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+{% endblock %}
+
+{% block body3%}
+		<h3>Ultimos Comics</h3>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato3 in datos3 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato3.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato3.nombre}}</h6></a>
+                  </div>
+                  <a href="{{dato3.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato3.portada}}.jpg" alt="Card image cap"></a>
+                  <div class="card-block">
+                    <h5 class="amarillo"> </span>{{dato3.voto|round(1, 'floor')}} <span class="ion-ios-star"></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+		
+		<div class="card-deck-wrapper">
+  		<div class="card-deck col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		    {% for dato4 in datos4 %}
+			<!-- card -->
+                <div class="card col-xs-3 col-sm-3 col-md-4 col-lg-2 col-xl-2">
+                  <div class="card-block">
+                    <a href="{{dato4.portadaNombre}}" class="enlace1"><h6 class="card-title">{{dato4.nombre}}</h6></a>
+                  </div>
+                  <a href="{{dato4.portadaNombre}}"><img class="center-block portada" src="{{ asset ('img/portada/')}}{{dato4.portada}}.jpg" alt="Card image cap"></a>
+                 <div class="card-block">
+                    <h5 class="amarillo"> {{dato4.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+                  </div>
+                </div>
+			{% endfor %}
+		</div>
+		</div>
+
+{% endblock %}

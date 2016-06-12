@@ -1,0 +1,16 @@
+comicvisorBundle\Entity\usuarioSigueComic:
+    type: entity
+    table: null
+    repositoryClass: comicvisorBundle\Repository\usuarioSigueComicRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        idusuario:
+            type: integer
+        idcomic:
+            type: integer
+    lifecycleCallbacks: {  }

@@ -1,0 +1,42 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - Registro{% endblock %}
+
+ {% block cabecera %}{% endblock %}
+
+ {% block body %}
+ 
+       
+ 
+ {{ form_start(form) }}
+     <h2 class="form-signin-heading">Registro de nuevo usuario</h2>
+        <br/>
+    <label for="inputEmail" class="">Nombre de usuario</label>
+    {{form_widget(form.nick)}}
+    <br/>
+    <label for="inputPassword" class="">Contraseña</label> 
+    {{form_widget(form.pass)}}
+    <br/>
+    <label for="inputPassword" class="">Correo electronico</label> 
+    {{form_widget(form.correo)}}
+    <br/>
+    <label for="inputPassword" class="">Fecha de nacimiento</label> 
+    {{form_widget(form.fechaNac)}}
+    <br/>
+    {{form_widget(form.enviar)}}
+    <br/>
+    
+ {{ form_end(form) }}
+ 
+ {% endblock %}
+
+{% block scripts %}
+<script>
+ $('input').addClass("form-control");
+ $('form').addClass("form-signin");
+ $('form').addClass("formulario1");
+ $('select').addClass("form-control");
+ $('button').addClass("btn btn-lg btn-success btn-block");
+
+</script>
+{% endblock %}

@@ -14,9 +14,12 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <link rel="stylesheet" href="{{asset('css/styles.css')}}" />
+    <link rel="icon" href="{{asset('favicon2.ico')}}" type="image/x-icon">
     {% endblock %}
   </head>
   <body class="bg-faded">
+       {% block fb %}
+       {% endblock %}
     <!--<header id="first">
     <div class="header-content">
         <div class="inner">
@@ -28,35 +31,39 @@
         </div>
     </div>
 </header>-->
-<nav id="topNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
-            <span class="ion-navicon-round"></span>
-        </button>
-        
-        <a class="navbar-brand page-scroll titulo" href="{{ asset ('/')}}">ComicVisor</a>
-        <div class="collapse navbar-toggleable-sm" id="cabecera">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{ asset ('/biblioteca')}}">Biblioteca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{{ asset ('/populares')}}">Populares</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#three"> Subida</a> 
-                </li>
-            </ul>
-            <ul class="nav navbar-nav pull-xs-right">
-            <li class="nav-item">
-                  <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#three"><span class="ion-person"></span>  Iniciar sesión</a>
-                </li>
-             </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                          <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_loginpage')}}" ><span class="ion-person"></span>  Iniciar sesión</a>
+                        </li>
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+{% endblock %}
+
+
 <section>
        <div class="container wow fadeInUp">
         <div class="row">
@@ -64,6 +71,14 @@
         </div>
         <div class="row margintop">
          {% block body2 %}{% endblock %}
+        </div>
+        
+        <div class="row margintop">
+         {% block body3 %}{% endblock %}
+        </div>
+        
+        <div class="row margintop">
+         {% block comentarios %}{% endblock %}
         </div>
          
        </div> 

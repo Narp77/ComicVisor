@@ -1,0 +1,27 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - Login {% endblock %}
+
+ {% block cabecera %}{% endblock %}
+
+ {% block body %}
+ 
+  <form class="form-signin formulario1" role="form" method="post" action="{{path('comicvisor_loginpage')}}">
+        <h2 class="form-signin-heading">Inicio de sesión</h2>
+        <br/>
+        <label for="inputText" class="sr-only">Nombre de usuario</label>
+        <input type="text" name="nick" class="form-control" placeholder="Nombre de usuario" required autofocus>
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" name="pass" class="form-control" placeholder="Contraseña" required>
+        <br/>
+        {% for flashMessage in app.session.flashbag.get('mensaje') %}
+          <span class="alert alert-danger alerta1">
+              {{ flashMessage }}
+          </span>
+       {% endfor %}
+        <br/>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Iniciar sesión</button>
+        <a href="{{ asset ('/registro')}}" class="btn btn-lg btn-success btn-block" >Registrase</a>
+      </form>
+ 
+ {% endblock %}

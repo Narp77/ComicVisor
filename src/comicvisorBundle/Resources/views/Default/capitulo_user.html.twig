@@ -1,0 +1,90 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - {{datos.nombre}}{% endblock %}
+
+{% block fb %} 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.6";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock %}
+
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                           <li class="nav-item btn-group">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{app.session.get('nick')}}   
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{path('comicvisor_modificarpage')}}">Mi perfil</a>
+                                <a class="dropdown-item" href="#"Algo</a>
+                                <a class="dropdown-item" href="{{path('comicvisor_logoutpage')}}">Cerrar sesión</a>
+                            </div>
+                        </li>
+
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+{% endblock %}
+
+{% block body%}
+<div class="col-md-4">
+   <a href="../{{datos.portadaNombre}}"> <div class="card card-inverse portada2">
+  <img src="{{ asset ('img/portada/')}}{{datos.portada}}.jpg" class="center-block paginav" alt="portada comic">
+  <div class="card-img-overlay">
+   <h5 class="amarillo2"> {{datos4.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+  </div>
+   </div></a>
+</div>
+<div class="col-md-7 contenedorpr">
+   <h2>Lista de versiones de {{datos.portadaNombre}} - {{numero}} </h2><br/>
+<div id="manita" class="list-group">
+    {% for dato in datos2 %}
+    <a  href="{{numero}}/{{dato.id}}/1" class="list-group-item " onclick="hola()">{{dato.nick}}</a>
+    {% endfor %}
+</div>
+</div> 
+
+{% endblock %}
+
+{% block body2%}
+
+{% endblock %}
+
+{% block scripts%}
+<script>
+    document.getElementById("manita").style.cursor = "pointer";
+</script>
+{% endblock %}
+
+{% block comentarios %}
+<div class="fb-comments" data-href="https://comicvisor-fcopbz.c9users.io/{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}" data-numposts="10" data-width="100%"></div>
+{% endblock %}

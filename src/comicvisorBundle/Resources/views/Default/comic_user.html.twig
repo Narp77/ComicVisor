@@ -1,0 +1,228 @@
+{% extends '::plantilla1.html.twig' %} 
+
+{% block title%}ComicVisor - {{datos.nombre}}{% endblock %}
+
+{% block fb %} 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.6";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock %}
+
+{% block cabecera %}
+        <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <button class="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#cabecera">
+                    <span class="ion-navicon-round"></span>
+                </button>
+                
+                <a class="navbar-brand page-scroll titulo" href="{{path('comicvisor_homepage')}}">ComicVisor</a>
+                <div class="collapse navbar-toggleable-sm" id="cabecera">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_bibliotecapage')}}">Biblioteca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_popularpage')}}">Populares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="{{path('comicvisor_subidapage')}}"> Subida</a> 
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-xs-right">
+                    <li class="nav-item">
+                           <li class="nav-item btn-group">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{app.session.get('nick')}}   
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{path('comicvisor_modificarpage')}}">Mi perfil</a>
+                                <a class="dropdown-item" href="{{path('comicvisor_logoutpage')}}">Cerrar sesión</a>
+                            </div>
+                        </li>
+
+                     </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+{% endblock %}
+
+{% block body%}
+<div class="col-md-4">
+    
+    <div class="card card-inverse portada2">
+  <img src="{{ asset ('img/portada/')}}{{datos.portada}}.jpg" class="center-block paginav" alt="portada comic">
+  <div class="card-img-overlay">
+   <h5 class="amarillo2"> {{datos4.voto|round(1, 'floor')}} <span class="ion-ios-star"></span></h5>
+  </div>
+</div>
+    
+    <!--<img src="{{ asset ('img/portada/')}}{{datos.portada}}.jpg" class="center-block portada2" alt="portada comic">-->
+</div>
+<div class="col-md-7 contenedorpr">
+    <div class="row">
+        <h2><span class="ion-information-circled verde">  </span>  Datos sobre {{datos.nombre}}</h2>
+    </div>
+    <div class="row margintop">
+        <p><span class="ion-edit informacion2" >  autor  </span> <span class="informacion1"> {{datos.autor}} </span></p>
+        <hr>
+    </div>
+    <div class="row">
+        <p><span class="ion-calendar informacion2">  Fecha de salida </span> <span class="informacion1"> {{datos.fechaSalida|date('d-m-Y')}} </span></p>
+         <hr>
+    </div>
+    <div class="row">
+        <p><span class="ion-checkmark informacion2">  Estado </span>  <span class="informacion1"> {{datos.estado}} </span></p>
+         <hr>
+    </div>
+    <div class="row">
+        <p><span class="ion-document-text informacion2">  Sipnosis </span>  <span class="informacion1"> {{datos.descripcion}} </span></p>
+         <hr>
+    </div>
+    <div class="row">
+        <p><span class="ion-pricetags informacion2">      Categorias </span> <span class="informacion1">{% for dato in datos3 %}{{dato.tipo}}   {% endfor %}</span>  </p>
+        <hr>
+    </div>
+</div> 
+
+{% endblock %}
+
+{% block body2 %}
+
+    <div class="col-xs-6">
+        <button id="bseguir" type="button" class="btn btn-success-outline" onclick="Seguir()"> <span class="ion-heart"> Seguir </span> </button>
+        <button id="bnoseguir" type="button" class="btn btn-success-outline" onclick="Dseguir()"> <span class="ion-heart-broken"> Dejar de seguir </span> </button>
+    </div>
+    <div class="col-xs-6">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="puntuacion">Puntuación</label>
+                 <select class="form-control" id="puntuacion" onchange="Votar()">
+                {% if voto.voto == 1 %}
+                  <option value="1" selected="selected"> 1 </option> 
+                  {% else %}
+                <option value="1"> 1 </option>
+                {% endif %}
+                {% if voto.voto == 2 %}
+                  <option value="2" selected="selected"> 2 </option>
+                {% else %}
+                <option value="2"> 2 </option>
+                {% endif %}
+                {% if voto.voto == 3 %}
+                  <option value="3" selected="selected"> 3 </option>
+                {% else %}
+                  <option value="3" > 3 </option>
+                {% endif %}
+                {% if voto.voto == 4 %}
+                  <option value="4" selected="selected"> 4 </option>
+                {% else %}
+                <option value="4"> 4 </option>
+                {% endif %}
+                {% if voto.voto == 5 %}
+                  <option value="5" selected="selected"> 5 </option>
+                {% else %}
+                <option value="5"> 5 </option>
+                {% endif %}
+                </select>
+          </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block body3 %}
+<h2>Lista de capitulos</h2>
+<div id="manita" class="list-group">
+    {% set cap = '' %}
+    {% for dato in datos2 %}
+    {% if dato.numero != cap %}
+    {% set cap = dato.numero %}
+    <a  class="list-group-item" onclick="Toggle({{dato.numero}})">{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}}</a>
+    <a  href="{{dato.portadaNombre}}/{{dato.numero}}/{{dato.id}}/1" class="list-group-item oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
+    {% else %}
+    <a  href="{{dato.portadaNombre}}/{{dato.numero}}/{{dato.id}}/1" class="list-group-item oculto {{dato.numero}}" >{{dato.nombre}} - {{dato.numero}} - {{dato.titulo}} - {{dato.nick}}</a>
+    {% endif %}
+    {% endfor %}
+    
+</div>
+{% endblock %}
+
+{% block scripts%}
+<script>
+    document.getElementById("manita").style.cursor = "pointer";
+    $(".oculto").hide();
+    
+     {% if sigue.tiene > 0 %}
+      $("#bseguir").hide();
+     {% else %}
+      $("#bnoseguir").hide();
+     {% endif %}
+     
+    function Toggle(numero){
+        
+        $("."+numero+"").fadeToggle(300);
+    }
+    
+    function Seguir()
+    {
+         $.post("{{ asset ('/php/seguir.php')}}",
+    {
+        idusuario: {{app.session.get('id')}},
+        idcomic: {{datos.id}}
+    },
+    function(data, status){
+        if(status == "success" && data == "ok")
+        {
+             $("#bseguir").hide();
+             $("#bnoseguir").show();
+        }
+    });
+    }
+    
+    function Dseguir()
+    {
+        $.post("{{ asset ('/php/dseguir.php')}}",
+    {
+        idusuario: {{app.session.get('id')}},
+        idcomic: {{datos.id}}
+    },
+    function(data, status){
+        if(status == "success" && data == "ok")
+        {
+             $("#bseguir").show();
+             $("#bnoseguir").hide();
+        }
+    });
+    }
+    
+    function Votar()
+    {
+        var voto = $("select[id=puntuacion]").val();
+        
+         $.post("{{ asset ('/php/voto.php')}}",
+    {
+        idusuario: {{app.session.get('id')}},
+        idcomic: {{datos.id}},
+        voto: voto
+    },
+    function(data, status){
+        if(status == "success" && data == "ok")
+        {
+            console.log('correcto');
+        }
+    });
+        
+    }
+</script>
+{% endblock %}
+
+{% block comentarios %}
+<div class="fb-comments" data-href="https://comicvisor-fcopbz.c9users.io/{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}" data-numposts="10" data-width="100%"></div>
+{% endblock %}

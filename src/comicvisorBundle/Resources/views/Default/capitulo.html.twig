@@ -2,6 +2,19 @@
 
 {% block title%}ComicVisor - {{datos.nombre}}{% endblock %}
 
+{% block fb %} 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.6";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock %}
+
 {% block body%}
 <div class="col-md-4">
    <a href="../{{datos.portadaNombre}}"> <div class="card card-inverse portada2">
@@ -12,46 +25,26 @@
    </div></a>
 </div>
 <div class="col-md-7 contenedorpr">
-    <div class="row">
-        <h2><span class="ion-information-circled verde">  </span>  Datos sobre {{datos.nombre}}</h2>
-    </div>
-    <div class="row margintop">
-        <p><span class="ion-edit informacion2" >  autor  </span> <span class="informacion1"> {{datos.autor}} </span></p>
-        <hr>
-    </div>
-    <div class="row">
-        <p><span class="ion-calendar informacion2">  Fecha de salida </span> <span class="informacion1"> {{datos.fechaSalida|date('d-m-Y')}} </span></p>
-         <hr>
-    </div>
-    <div class="row">
-        <p><span class="ion-checkmark informacion2">  Estado </span>  <span class="informacion1"> {{datos.estado}} </span></p>
-         <hr>
-    </div>
-    <div class="row">
-        <p><span class="ion-document-text informacion2">  Sipnosis </span>  <span class="informacion1"> {{datos.descripcion}} </span></p>
-         <hr>
-    </div>
-    <div class="row">
-        <p><span class="ion-pricetags informacion2">      Categorias </span> <span class="informacion1">{% for dato in datos3 %}{{dato.tipo}}   {% endfor %} </span>  </p>
-        <hr>
-    </div>
-</div> 
-
-{% endblock %}
-
-{% block body2%}
-<h2>Lista de versiones</h2>
+   <h2>Lista de versiones de {{datos.portadaNombre}} - {{numero}} </h2><br/>
 <div id="manita" class="list-group">
     {% for dato in datos2 %}
     <a  href="{{numero}}/{{dato.id}}/1" class="list-group-item " onclick="hola()">{{dato.nick}}</a>
     {% endfor %}
 </div>
+</div> 
+
+{% endblock %}
+
+{% block body2%}
+
 {% endblock %}
 
 {% block scripts%}
 <script>
     document.getElementById("manita").style.cursor = "pointer";
-    function hola(){
-    }
 </script>
+{% endblock %}
+
+{% block comentarios %}
+<div class="fb-comments" data-href="https://comicvisor-fcopbz.c9users.io/{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}" data-numposts="10" data-width="100%"></div>
 {% endblock %}
