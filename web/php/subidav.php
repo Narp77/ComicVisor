@@ -1,4 +1,5 @@
 <?php
+include("db.php");
 
 $last_id=null;
 $nombrecomic=null;
@@ -33,7 +34,7 @@ if(isset($_FILES['imagenes']) ){
   $idcapitulo = $_REQUEST["capitulo"];
   $paginas = $_REQUEST["npaginas"];
   
-  $db = new mysqli('127.0.0.1', 'fcopbz', '', 'c9'); $db->query("SET NAMES utf8");
+  $db = obtenerConexion();  $db->query("SET NAMES utf8");
   $sql="insert into version (id, idcapitulo, idusuario, numero_pag) values ( null, $idcapitulo, $idu, $paginas)";
   
   echo $sql;
@@ -84,12 +85,14 @@ if(isset($_FILES['imagenes']) ){
 		$message = "The file you are trying to upload is not a .zip file. Please try again.";
 	}
 
-	$target_path = "/home/ubuntu/workspace/web/".$filename;  // change this to the correct site path
+	$target_path = "/home/ubuntu/workspace/web/".$filename;  // Ruta a cambiar /home/ubuntu/workspace/web/
+	echo '<br/>'.$target_path.'<br/>';
+	echo '<br/>'.$source.'<br/>';
 	if(move_uploaded_file($source, $target_path)) {
 		$zip = new ZipArchive();
 		$x = $zip->open($target_path);
 		if ($x === true) {
-			$zip->extractTo("/home/ubuntu/workspace/web/img/comic/$nombrecomic/$numerocapitulo/$last_id/"); // change this to the correct site path
+			$zip->extractTo("/home/ubuntu/workspace/web/img/comic/$nombrecomic/$numerocapitulo/$last_id/"); // Ruta a cambiar /home/ubuntu/workspace/web/
 			$zip->close();
 	
 			unlink($target_path);
@@ -97,6 +100,7 @@ if(isset($_FILES['imagenes']) ){
 		$message = "Your .zip file was uploaded and unpacked.";
 	} else {	
 		$message = "There was a problem with the upload. Please try again.";
+		header('Location: /web/error');
 	}
 	echo $message;
 }

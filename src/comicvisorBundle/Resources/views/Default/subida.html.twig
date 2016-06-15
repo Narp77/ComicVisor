@@ -44,7 +44,7 @@
  {% block body%}
 		<div class='col-xs-12 text-center'>
 		<button id="boton1"type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(1)">Nueva Versión</button> 
-		<button id="boton2" type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(2)">Nuevo Comic</button>
+		<button id="boton2" type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(2)">Nuevo Cómic</button>
     	<button id="boton3" type="button" class="btn btn-success-outline btn-lg btn-block center-block" onclick="Cambiar(3)">Nuevo Capítulo</button>
 
 		
@@ -57,13 +57,13 @@
   <form id="form1" class="form-signin formulario1" role="form" method="post" enctype="multipart/form-data" action="php/subidav.php">
         <h2 class="form-signin-heading">Subida de Versión</h2>
         <br/>
-        <label for="selectcomic" class="labels">Comic</label>
+        <label for="selectcomic" class="labels">Cómic</label>
         <select id="selectcomic" name="comic" onchange="Cargar()" onclick="Cargar()" class="form-control">
         </select>
         <label for="selectcapitulo" class="labels">Capítulo</label>
         <select id="selectcapitulo" name="capitulo" class="form-control">
         </select>
-        <label for="npaginas" class="labels">Número de paginas</label>
+        <label for="npaginas" class="labels">Número de páginas</label>
         <input type="number" name="npaginas" class="form-control" required>
         <label for="imagenes" class="labels">Archivo con las imagenes</label>
         <input type="file" name="imagenes" id="imagenes" class="form-control"/>
@@ -74,8 +74,8 @@
         <br/>
         <div class="jumbotron alert-success">
           <h1 class="display-4">Instrucciones para subir una versión</h1>
-          <p class="lead">Primero se debera elegir el comic al que se desea subir la versión</p>
-          <p class="lead">Despues se debera elegir el capitulo al que se desea subir la versión</p>
+          <p class="lead">Primero se debera elegir el cómic al que se desea subir la versión</p>
+          <p class="lead">Despues se debera elegir el capítulo al que se desea subir la versión</p>
           <p class="lead">Despues se debera introducir el número de páginas totales que contendra la versión</p>
           <p class="lead">Para finalizar se debera elegir el archivo que contenga la versión, el archivo debe ser un .zip obligatoriamente</p>
           <p class="lead">Dentro de este fichero .zip estaran las imagenes con el siguiente formato: 1.jpg 2.jpg 3.jpg ...</p>
@@ -84,10 +84,10 @@
     </form>
     
       <form id="form2" class="form-signin formulario1" role="form" method="post" enctype="multipart/form-data" action="php/subidac.php">
-        <h2 class="form-signin-heading">Subida de Comic</h2>
+        <h2 class="form-signin-heading">Subida de Cómic</h2>
         <br/>
         
-        <label for="nombre" class="labels">Nombre del comic</label>
+        <label for="nombre" class="labels">Nombre del cómic</label>
         <input type="text" name="nombre" class="form-control" required>
         <label for="autor" class="labels">Autor</label>
         <input type="text" name="autor" class="form-control" required>
@@ -107,10 +107,10 @@
         <br/>
         <br/>
         <div class="jumbotron alert-success">
-          <h1 class="display-4">Instrucciones para subir un comic</h1>
-          <p class="lead">Primero se debera introducir el nombre del comic</p>
+          <h1 class="display-4">Instrucciones para subir un cómic</h1>
+          <p class="lead">Primero se debera introducir el nombre del cómic</p>
           <p class="lead">Despues se debera introducir el nombre del autor</p>
-          <p class="lead">Despues se debera introducir el estado actual del comic</p>
+          <p class="lead">Despues se debera introducir el estado actual del cómic</p>
           <p class="lead">Despues se debera introducir la sinopsis</p>
           <p class="lead">Despues se debera introducir la categoria</p>
           <p class="lead">Despues se debera introducir el nombre de la portada donde no podra haber espacios ni caracteres especiales</p>
@@ -121,18 +121,19 @@
       <form id="form3" class="form-signin formulario1" role="form" method="post" enctype="multipart/form-data" action="php/subidacp.php">
         <h2 class="form-signin-heading">Subida de Capítulo</h2>
         <br/>
-        <label for="selectcomic2" class="labels">Comic</label>
+        <label for="selectcomic2" class="labels">Cómic</label>
         <select id="selectcomic2" name="comic2"  class="form-control">
         </select>
-        <label for="titulo" class="labels">Titulo del capitulo</label>
+        <label for="titulo" class="labels">Titulo del capítulo</label>
         <input type="text" name="titulo" class="form-control">
-        <label for="ncapitulo" class="labels">Número del capitulo</label>
+        <label for="ncapitulo" class="labels">Número del capítulo</label>
         <input type="number" name="ncapitulo" class="form-control" required>
         <br/>
         <button class="btn btn-lg btn-success btn-block" type="submit">Subir</button>
+        <br/>
         <div class="jumbotron alert-success">
-          <h1 class="display-4">Instrucciones para subir un comic</h1>
-          <p class="lead">Primero se debera elegir el comic</p>
+          <h1 class="display-4">Instrucciones para subir un capítulo</h1>
+          <p class="lead">Primero se debera elegir el cómic</p>
           <p class="lead">Despues se debera introducir el titulo del capítulo</p>
           <p class="lead">Despues se debera introducir el número del capítulo a añadir</p>
         </div>

@@ -20,6 +20,7 @@ class DefaultController extends Controller
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
              ->groupBy('c.id')
+             ->orderBy('c.id', 'DESC')
              ->setFirstResult(0);
              $datos->setMaxResults(6);
         $datos2 =  $datos->getQuery()->getResult();
@@ -31,6 +32,7 @@ class DefaultController extends Controller
              ->innerJoin('comicvisorBundle:capitulo', 'c', 'WITH', 'v.id = c.idcomic')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'v.id = u.idcomic')
              ->groupBy('c.id')
+             ->orderBy('c.id', 'DESC')
              ->setFirstResult(6)
              ->setMaxResults(6);
         $datos3 =  $datos->getQuery()->getResult();
@@ -41,6 +43,7 @@ class DefaultController extends Controller
              ->from('comicvisorBundle:comic', 'c')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
              ->groupBy('c.id')
+             ->orderBy('c.id', 'DESC')
              ->setFirstResult(0)
              ->setMaxResults(6);
         $datos4 =  $datos->getQuery()->getResult();
@@ -51,6 +54,7 @@ class DefaultController extends Controller
              ->from('comicvisorBundle:comic','c')
              ->innerJoin('comicvisorBundle:usuarioVotaComic', 'u', 'WITH', 'c.id = u.idcomic')
              ->groupBy('c.id')
+             ->orderBy('c.id', 'DESC')
              ->setFirstResult(6)
              ->setMaxResults(6);
         $datos5 =  $datos->getQuery()->getResult();
@@ -88,6 +92,7 @@ class DefaultController extends Controller
                  ->where('v.id IN (:ids)')
                  ->setParameter('ids', array_values($ids))
                  ->groupBy('c.id')
+                 ->orderBy('c.id', 'DESC')
                  ->setFirstResult(0);
                  $datos->setMaxResults(6);
              $datos6 =  $datos->getQuery()->getResult();
@@ -101,6 +106,7 @@ class DefaultController extends Controller
                  ->where('v.id IN (:ids)')
                  ->setParameter('ids', array_values($ids))
                  ->groupBy('c.id')
+                 ->orderBy('c.id', 'DESC')
                  ->setFirstResult(6)
                  ->setMaxResults(6);
              $datos7 =  $datos->getQuery()->getResult();

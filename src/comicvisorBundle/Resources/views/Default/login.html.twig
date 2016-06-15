@@ -1,6 +1,6 @@
 {% extends '::plantilla1.html.twig' %} 
 
-{% block title%}ComicVisor - Login {% endblock %}
+{% block title%}ComicVisor - Inicio de sesión {% endblock %}
 
  {% block cabecera %}{% endblock %}
 
@@ -21,7 +21,9 @@
        {% endfor %}
         <br/>
         <button class="btn btn-lg btn-success btn-block" type="submit">Iniciar sesión</button>
-        <a href="{{ asset ('/registro')}}" class="btn btn-lg btn-success btn-block" >Registrase</a>
+        <a href="{{ asset ('/registro')}}" class="btn btn-lg btn-success btn-block" >Registrarse</a>
+        <br/>
+        <a href="{{ asset ('/')}}" class="btn btn-lg btn-success btn-block" >Volver al inicio</a>
       </form>
  
  {% endblock %}

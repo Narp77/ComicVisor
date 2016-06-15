@@ -99,6 +99,16 @@
     <div class="col-xs-6">
         <button id="bseguir" type="button" class="btn btn-success-outline" onclick="Seguir()"> <span class="ion-heart"> Seguir </span> </button>
         <button id="bnoseguir" type="button" class="btn btn-success-outline" onclick="Dseguir()"> <span class="ion-heart-broken"> Dejar de seguir </span> </button>
+        <br/><br/>
+         <div id="alert1" class="alert alert-success alerta1" role="alert">
+        <p><strong>Ahora usted sigue a este cómic</strong></p>
+        </div>
+        <div id="alert2" class="alert alert-success alerta1" role="alert">
+            <p><strong>Ahora usted ya no sigue a este cómic</strong></p>
+        </div>
+        <div id="alert3" class="alert alert-success alerta1" role="alert">
+            <p><strong>Gracias por su voto</strong></p>
+        </div>
     </div>
     <div class="col-xs-6">
         <form class="form-inline">
@@ -158,6 +168,9 @@
 <script>
     document.getElementById("manita").style.cursor = "pointer";
     $(".oculto").hide();
+     $("#alert1").hide();
+      $("#alert2").hide();
+       $("#alert3").hide();
     
      {% if sigue.tiene > 0 %}
       $("#bseguir").hide();
@@ -182,6 +195,8 @@
         {
              $("#bseguir").hide();
              $("#bnoseguir").show();
+             $('#alert1').show();
+            setTimeout(function(){$('#alert1').hide();},3000);
         }
     });
     }
@@ -198,6 +213,8 @@
         {
              $("#bseguir").show();
              $("#bnoseguir").hide();
+             $('#alert2').show();
+            setTimeout(function(){$('#alert2').hide();},5000);
         }
     });
     }
@@ -215,7 +232,8 @@
     function(data, status){
         if(status == "success" && data == "ok")
         {
-            console.log('correcto');
+            $('#alert3').show();
+            setTimeout(function(){$('#alert3').hide();},5000);
         }
     });
         
